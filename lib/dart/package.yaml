@@ -1,0 +1,5 @@
+include: package:rexios_lints/dart/core.yaml
+
+linter:
+  rules:
+    - public_member_api_docs
