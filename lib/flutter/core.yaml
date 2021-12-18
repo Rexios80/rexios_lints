@@ -8,4 +8,7 @@ linter:
     - always_use_package_imports
 
 analyzer:
-  exclude: ["**/*.g.dart", "**/*.mocks.dart", "**/*.freezed.dart"]
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.mocks.dart"
+    - "**/*.freezed.dart"
