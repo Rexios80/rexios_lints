@@ -6,6 +6,9 @@ linter:
     - unawaited_futures
     - require_trailing_commas
     - always_use_package_imports
+    - use_super_parameters
+    - prefer_final_in_for_each
+    - prefer_final_locals
 
 analyzer:
   exclude:

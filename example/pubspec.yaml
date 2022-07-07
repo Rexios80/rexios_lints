@@ -7,4 +7,5 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dev_dependencies:
-  rexios_lints: ^2.0.0
+  rexios_lints:
+    path: ../
