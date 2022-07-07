@@ -1,11 +1,11 @@
 # Linting rules for a Flutter project
-include: package:rexios_lints/flutter/core.yaml
+# include: package:rexios_lints/flutter/core.yaml
 
 # Linting rules for a Flutter package
 # include: package:rexios_lints/flutter/package.yaml
 
 # Linting rules for a Dart project
-# include: package:rexios_lints/dart/core.yaml
+include: package:rexios_lints/dart/core.yaml
 
 # Linting rules for a Dart package
 # include: package:rexios_lints/dart/package.yaml

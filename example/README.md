@@ -1,1 +1,0 @@
-An example project that uses rexios_lints
