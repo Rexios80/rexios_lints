@@ -9,9 +9,3 @@ linter:
     - use_super_parameters
     - prefer_final_in_for_each
     - prefer_final_locals
-
-analyzer:
-  exclude:
-    - "**/*.g.dart"
-    - "**/*.mocks.dart"
-    - "**/*.freezed.dart"
