@@ -1,6 +1,6 @@
 name: rexios_lints
 description: A collection of the linting rules I use for Flutter/Dart projects and packages
-version: 4.0.0
+version: 5.0.0
 homepage: https://github.com/Rexios80/rexios_lints
 
 environment:
@@ -9,3 +9,6 @@ environment:
 dependencies:
   lints: ^2.0.0
   flutter_lints: ^2.0.1
+
+dev_dependencies:
+  yaml: ^3.1.1

@@ -2,10 +2,10 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    - prefer_single_quotes
-    - unawaited_futures
-    - require_trailing_commas
     - always_use_package_imports
-    - use_super_parameters
     - prefer_final_in_for_each
     - prefer_final_locals
+    - prefer_single_quotes
+    - require_trailing_commas
+    - unawaited_futures
+    - use_super_parameters
