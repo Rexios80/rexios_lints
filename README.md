@@ -95,4 +95,4 @@ include: package:rexios_lints/flutter/package.yaml
 ### Package
 
 [public_member_api_docs](https://dart-lang.github.io/linter/lints/public_member_api_docs.html)
-- Enforces documentation. Promotes code readability and maintenance. Also ensures a good documentation score from pana.
+- Enforces documentation. Promotes code readability and maintenance. Also ensures a good documentation score from `pana`.
