@@ -1,3 +1,13 @@
+## 5.0.0
+- Adds the following lints
+  - `always_declare_return_types`
+  - `avoid_types_on_closure_parameters`
+  - `leading_newlines_in_multiline_strings`
+  - `omit_local_variable_types`
+  - `unnecessary_lambdas`
+  - `unnecessary_parenthesis`
+- See the README for justification
+
 ## 4.0.0
 - Removes analysis exclusions for the following reasons:
   - Errors in generated files should not be invisible

@@ -2,10 +2,16 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    - always_declare_return_types
     - always_use_package_imports
+    - avoid_types_on_closure_parameters
+    - leading_newlines_in_multiline_strings
+    - omit_local_variable_types
     - prefer_final_in_for_each
     - prefer_final_locals
     - prefer_single_quotes
     - require_trailing_commas
     - unawaited_futures
+    - unnecessary_lambdas
+    - unnecessary_parenthesis
     - use_super_parameters

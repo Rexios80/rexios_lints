@@ -41,7 +41,9 @@ void write({
   required String coreLints,
   required String packageLints,
 }) {
-  File('lib/$folder/core.yaml').writeAsStringSync('''
+  final file = File('lib/$folder/core.yaml');
+  file.createSync(recursive: true);
+  file.writeAsStringSync('''
 include: $coreInclude
 
 $coreLints
