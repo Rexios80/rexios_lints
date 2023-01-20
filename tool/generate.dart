@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 
 void main() {
-  final coreLints = readAndSortRules('tool/src/core.yaml');
-  final packageLints = readAndSortRules('tool/src/package.yaml');
+  final coreLints = readAndSortRules('tool/template/core.yaml');
+  final packageLints = readAndSortRules('tool/template/package.yaml');
 
   write(
     folder: 'dart',
