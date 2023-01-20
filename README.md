@@ -82,7 +82,8 @@ include: package:rexios_lints/flutter/package.yaml
 
 [unnecessary_lambdas](https://dart-lang.github.io/linter/lints/unnecessary_lambdas.html)
 - Brevity
-- Also, `Widget`s using tear-offs can be declared `const` in some cases
+- `Widget`s using tear-offs can be declared `const` in some cases
+- This can expose unsafe usage of `dynamic` types
 
 [unnecessary_parenthesis](https://dart-lang.github.io/linter/lints/unnecessary_parenthesis.html)
 - Brevity
