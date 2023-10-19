@@ -38,7 +38,7 @@ include: package:rexios_lints/flutter/package.yaml
 
 ## Justification
 
-### Core
+### core
 
 [always_declare_return_types](https://dart-lang.github.io/linter/lints/always_declare_return_types.html)
 - Safety
@@ -97,6 +97,9 @@ include: package:rexios_lints/flutter/package.yaml
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
 
+
+### flutter/core
+
 [use_colored_box](https://dart-lang.github.io/linter/lints/use_colored_box.html)
 - Performance
 - A `ColoredBox` is more performant than a `Container` with a `color` property
@@ -105,7 +108,7 @@ include: package:rexios_lints/flutter/package.yaml
 - Performance
 - A `DecoratedBox` is more performant than a `Container` with a `decoration` property
 
-### Package
+### package
 
 [public_member_api_docs](https://dart-lang.github.io/linter/lints/public_member_api_docs.html)
 - Enforces documentation. Promotes code readability and maintenance. Also ensures a good documentation score from `pana`.

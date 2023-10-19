@@ -1,3 +1,6 @@
+## 6.0.1
+- Update readme
+
 ## 6.0.0
 - Upgrades `lints` to 3.0.0
 - Upgrades `flutter_lints` to 3.0.0
