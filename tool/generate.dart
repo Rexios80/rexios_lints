@@ -1,56 +1,68 @@
 import 'dart:io';
 
-import 'package:yaml/yaml.dart';
+final core = [
+  'always_declare_return_types',
+  'always_use_package_imports',
+  'avoid_types_on_closure_parameters',
+  'conditional_uri_does_not_exist',
+  'leading_newlines_in_multiline_strings',
+  'omit_local_variable_types',
+  'prefer_final_in_for_each',
+  'prefer_final_locals',
+  'prefer_single_quotes',
+  'require_trailing_commas',
+  'unawaited_futures',
+  'unnecessary_breaks',
+  'unnecessary_lambdas',
+  'unnecessary_parenthesis',
+]..sort();
+
+final flutter = [
+  ...core,
+  'use_colored_box',
+  'use_decorated_box',
+]..sort();
+
+final package = [
+  'public_member_api_docs',
+]..sort();
 
 void main() {
-  final coreLints = readAndSortRules('tool/template/core.yaml');
-  final packageLints = readAndSortRules('tool/template/package.yaml');
-
   write(
     folder: 'dart',
     coreInclude: 'package:lints/recommended.yaml',
-    coreLints: coreLints,
-    packageLints: packageLints,
+    coreLints: core,
+    packageLints: package,
   );
 
   write(
     folder: 'flutter',
     coreInclude: 'package:flutter_lints/flutter.yaml',
-    coreLints: coreLints,
-    packageLints: packageLints,
+    coreLints: flutter,
+    packageLints: package,
   );
-}
-
-String readAndSortRules(String fileName) {
-  final file = File(fileName);
-  final yaml = loadYaml(file.readAsStringSync()) as YamlMap;
-  final rules = (yaml['linter']['rules'] as YamlList).toList();
-  rules.sort();
-  final sorted = '''
-linter:
-  rules:
-    - ${rules.join('\n    - ')}
-''';
-  file.writeAsStringSync(sorted);
-  return sorted.trim();
 }
 
 void write({
   required String folder,
   required String coreInclude,
-  required String coreLints,
-  required String packageLints,
+  required List<String> coreLints,
+  required List<String> packageLints,
 }) {
   final file = File('lib/$folder/core.yaml');
   file.createSync(recursive: true);
   file.writeAsStringSync('''
 include: $coreInclude
 
-$coreLints
+linter:
+  rules:
+${coreLints.map((e) => '    - $e').join('\n')}
 ''');
   File('lib/$folder/package.yaml').writeAsStringSync('''
 include: package:rexios_lints/$folder/core.yaml
 
-$packageLints
+linter:
+  rules:
+${packageLints.map((e) => '    - $e').join('\n')}
 ''');
 }

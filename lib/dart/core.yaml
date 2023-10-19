@@ -5,6 +5,7 @@ linter:
     - always_declare_return_types
     - always_use_package_imports
     - avoid_types_on_closure_parameters
+    - conditional_uri_does_not_exist
     - leading_newlines_in_multiline_strings
     - omit_local_variable_types
     - prefer_final_in_for_each
@@ -12,6 +13,6 @@ linter:
     - prefer_single_quotes
     - require_trailing_commas
     - unawaited_futures
+    - unnecessary_breaks
     - unnecessary_lambdas
     - unnecessary_parenthesis
-    - use_super_parameters

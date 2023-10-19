@@ -52,6 +52,10 @@ include: package:rexios_lints/flutter/package.yaml
 - Brevity
 - The type checker can inform you of the type if you need to see it
 
+[conditional_uri_does_not_exist](https://dart.dev/tools/linter-rules/conditional_uri_does_not_exist)
+- Safety
+- Without this rule there is no warning if a conditional import does not exist
+
 [leading_newlines_in_multiline_strings](https://dart-lang.github.io/linter/lints/leading_newlines_in_multiline_strings.html)
 - Readability
 - Not all languages ignore a leading newline in multiline strings. Dart does, and it's more readable. No more remembering if Dart supports it or not.
@@ -80,6 +84,10 @@ include: package:rexios_lints/flutter/package.yaml
 - Safety
 - Ensures that async calls in async methods aren't accidentally ignored
 
+[unnecessary_breaks](https://dart.dev/tools/linter-rules/unnecessary_breaks)
+- Brevity
+- Switch cases no longer need explicit break statements as of Dart 3
+
 [unnecessary_lambdas](https://dart-lang.github.io/linter/lints/unnecessary_lambdas.html)
 - Brevity
 - `Widget`s using tear-offs can be declared `const` in some cases
@@ -89,9 +97,13 @@ include: package:rexios_lints/flutter/package.yaml
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
 
-[use_super_parameters](https://dart-lang.github.io/linter/lints/use_super_parameters.html)
-- Brevity
-- Also, easier refactoring
+[use_colored_box](https://dart-lang.github.io/linter/lints/use_colored_box.html)
+- Performance
+- A `ColoredBox` is more performant than a `Container` with a `color` property
+
+[use_decorated_box](https://dart-lang.github.io/linter/lints/use_decorated_box.html)
+- Performance
+- A `DecoratedBox` is more performant than a `Container` with a `decoration` property
 
 ### Package
 

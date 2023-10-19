@@ -1,3 +1,14 @@
+## 6.0.0
+- Upgrades `lints` to 3.0.0
+- Upgrades `flutter_lints` to 3.0.0
+- Removes `use_super_parameters` from ruleset since it is now a part of `lints/recommended`
+- Adds the following lints to `dart/core` and `flutter/core`
+  - `conditional_uri_does_not_exist`
+  - `unnecessary_breaks`
+- Adds the following lints to `flutter/core`
+  - `use_colored_box`
+  - `use_decorated_box`
+
 ## 5.0.0
 - Adds the following lints
   - `always_declare_return_types`
