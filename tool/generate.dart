@@ -51,13 +51,21 @@ void write({
 }) {
   final file = File('lib/$folder/core.yaml');
   file.createSync(recursive: true);
+
+  // Write core lints
   file.writeAsStringSync('''
 include: $coreInclude
 
 linter:
   rules:
 ${coreLints.map((e) => '    - $e').join('\n')}
+
+analyzer:
+  plugins:
+    - custom_lint
 ''');
+
+  // Write package lints
   File('lib/$folder/package.yaml').writeAsStringSync('''
 include: package:rexios_lints/$folder/core.yaml
 

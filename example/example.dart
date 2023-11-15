@@ -1,16 +1,18 @@
-// Convert file extension to .dart to see analysis issues
-
-// prefer_single_quotes
+// ignore: prefer_single_quotes
 const string = "";
 
 void unawaitedFutures() async {
-  // unawaited_futures
+  // ignore: unawaited_futures
   Future.delayed(Duration.zero);
 }
 
-// require_trailing_commas
 void requireTrailingCommas(
-    int param1, int param2, int param3, int param4, int param5) {}
+    int param1,
+    int param2,
+    int param3,
+    int param4,
+    // ignore: require_trailing_commas
+    int param5) {}
 
 class UseSuperParametersBase {
   final int param;
@@ -19,17 +21,21 @@ class UseSuperParametersBase {
 }
 
 class UseSuperParameters extends UseSuperParametersBase {
-  // use_super_parameters
+  // ignore: use_super_parameters
   UseSuperParameters(int param) : super(param);
 }
 
 void preferFinal() {
-  // prefer_final_in_for_each
+  // ignore: prefer_final_in_for_each
   for (var i in []) {
     print(i);
   }
 
-  // prefer_final_locals
+  // ignore: prefer_final_locals
   var i = 0;
   print(i);
+}
+
+void dateTime() {
+  DateTime.now();
 }
