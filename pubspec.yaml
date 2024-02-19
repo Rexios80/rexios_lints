@@ -9,3 +9,8 @@ environment:
 dependencies:
   lints: ^3.0.0
   flutter_lints: ^3.0.0
+
+dev_dependencies:
+  collection: ^1.18.0
+  http: ^1.2.1
+  pub_semver: ^2.1.4
