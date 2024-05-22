@@ -1,3 +1,6 @@
+## 7.0.0
+- Upgrades `lints` and `flutter_lints`
+
 ## 6.0.1
 - Update readme
 

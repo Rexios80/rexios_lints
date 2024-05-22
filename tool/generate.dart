@@ -58,6 +58,7 @@ linter:
   rules:
 ${coreLints.map((e) => '    - $e').join('\n')}
 ''');
+
   File('lib/$folder/package.yaml').writeAsStringSync('''
 include: package:rexios_lints/$folder/core.yaml
 
