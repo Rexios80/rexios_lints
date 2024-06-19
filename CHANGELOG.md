@@ -1,3 +1,6 @@
+## NEXT
+- Adds `document_ignores` to core lints
+
 ## 7.0.0
 - Upgrades `lints` and `flutter_lints`
 

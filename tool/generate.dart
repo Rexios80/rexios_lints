@@ -5,6 +5,8 @@ final core = [
   'always_use_package_imports',
   'avoid_types_on_closure_parameters',
   'conditional_uri_does_not_exist',
+  // TODO: Add when Dart 3.5.0 is stable
+  // 'document_ignores',
   'leading_newlines_in_multiline_strings',
   'omit_local_variable_types',
   'prefer_final_in_for_each',
