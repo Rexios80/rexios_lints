@@ -1,5 +1,6 @@
-## NEXT
+## 8.0.0
 - Adds `document_ignores` to core lints
+- Adds `invalid_runtime_check_with_js_interop_types` to core lints
 
 ## 7.0.0
 - Upgrades `lints` and `flutter_lints`

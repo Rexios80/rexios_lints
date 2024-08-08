@@ -17,6 +17,8 @@ void main() async {
       .map(Rule.fromJson);
   final rules = json
       .where((e) => e.sinceDartSdk >= since)
+      // Do not show removed rules
+      .where((e) => e.state != 'removed')
       // Only show rules that will not be included automatically
       .where((e) => e.sets.intersection({'recommended', 'flutter'}).isEmpty);
   print('${rules.length} rules since $since:');

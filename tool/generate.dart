@@ -5,14 +5,15 @@ final core = [
   'always_use_package_imports',
   'avoid_types_on_closure_parameters',
   'conditional_uri_does_not_exist',
-  // TODO: Add when Dart 3.5.0 is stable
-  // 'document_ignores',
+  'document_ignores',
+  'invalid_runtime_check_with_js_interop_types',
   'leading_newlines_in_multiline_strings',
   'omit_local_variable_types',
   'prefer_final_in_for_each',
   'prefer_final_locals',
   'prefer_single_quotes',
   'require_trailing_commas',
+  // 'use_truncating_division', // TODO: Add with Dart 3.6.0 stable
   'unawaited_futures',
   'unnecessary_breaks',
   'unnecessary_lambdas',

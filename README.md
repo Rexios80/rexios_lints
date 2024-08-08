@@ -56,6 +56,14 @@ include: package:rexios_lints/flutter/package.yaml
 - Safety
 - Without this rule there is no warning if a conditional import does not exist
 
+[document_ignores](https://dart.dev/tools/linter-rules/document_ignores)
+- Technical debt
+- In the rare case that ignoring a lint rule is unavoidable, the reason should be documented
+
+[invalid_runtime_check_with_js_interop_types](https://dart.dev/tools/linter-rules/invalid_runtime_check_with_js_interop_types)
+- Safety
+- Runtime type tests with JS interop types do not work on all platforms
+
 [leading_newlines_in_multiline_strings](https://dart.dev/tools/linter-rules/leading_newlines_in_multiline_strings)
 - Readability
 - Not all languages ignore a leading newline in multiline strings. Dart does, and it's more readable. No more remembering if Dart supports it or not.
@@ -96,7 +104,6 @@ include: package:rexios_lints/flutter/package.yaml
 [unnecessary_parenthesis](https://dart.dev/tools/linter-rules/unnecessary_parenthesis)
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
-
 
 ### flutter/core
 
