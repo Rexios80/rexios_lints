@@ -44,5 +44,6 @@ void preferAsyncAwait() {
 }
 
 void preferTimestamps() {
+  // expect_lint: prefer_timestamps
   DateTime.now();
 }
