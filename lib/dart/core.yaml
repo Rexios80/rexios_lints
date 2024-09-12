@@ -18,7 +18,3 @@ linter:
     - unnecessary_breaks
     - unnecessary_lambdas
     - unnecessary_parenthesis
-
-analyzer:
-  plugins:
-    - custom_lint

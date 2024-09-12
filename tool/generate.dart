@@ -30,6 +30,11 @@ final package = [
   'public_member_api_docs',
 ]..sort();
 
+const customLint = '''
+analyzer:
+  plugins:
+    - custom_lint''';
+
 void main() {
   write(
     folder: 'dart',
@@ -52,20 +57,22 @@ void write({
   required List<String> coreLints,
   required List<String> packageLints,
 }) {
-  final file = File('lib/$folder/core.yaml');
-  file.createSync(recursive: true);
+  Directory('lib/$folder').createSync(recursive: true);
 
   // Write core lints
-  file.writeAsStringSync('''
+  File('lib/$folder/core.yaml').writeAsStringSync('''
 include: $coreInclude
 
 linter:
   rules:
 ${coreLints.map((e) => '    - $e').join('\n')}
+''');
 
-analyzer:
-  plugins:
-    - custom_lint
+  // Write core_extra lints
+  File('lib/$folder/core_extra.yaml').writeAsStringSync('''
+include: package:rexios_lints/$folder/core.yaml
+
+$customLint
 ''');
 
   // Write package lints
@@ -75,5 +82,12 @@ include: package:rexios_lints/$folder/core.yaml
 linter:
   rules:
 ${packageLints.map((e) => '    - $e').join('\n')}
+''');
+
+  // Write package_extra lints
+  File('lib/$folder/package_extra.yaml').writeAsStringSync('''
+include: package:rexios_lints/$folder/package.yaml
+
+$customLint
 ''');
 }

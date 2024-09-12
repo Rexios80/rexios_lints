@@ -1,0 +1,5 @@
+include: package:rexios_lints/dart/package.yaml
+
+analyzer:
+  plugins:
+    - custom_lint

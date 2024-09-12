@@ -20,7 +20,3 @@ linter:
     - unnecessary_parenthesis
     - use_colored_box
     - use_decorated_box
-
-analyzer:
-  plugins:
-    - custom_lint
