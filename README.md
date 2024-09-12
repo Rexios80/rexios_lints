@@ -147,3 +147,10 @@ The `extra` rulesets include custom lint rules created with the [custom_lint](ht
 [public_member_api_docs](https://dart.dev/tools/linter-rules/public_member_api_docs)
 
 - Enforces documentation. Promotes code readability and maintenance. Also ensures a good documentation score from `pana`.
+
+### extra
+
+[prefer_async_await](https://dart.dev/effective-dart/usage#prefer-asyncawait-over-using-raw-futures)
+
+- Readability
+- `async`/`await` is more readable than `Future.then`

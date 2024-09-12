@@ -41,3 +41,8 @@ void preferFinal() {
 void dateTime() {
   DateTime.now();
 }
+
+void preferAsyncAwait() {
+  // expect_lint: prefer_async_await
+  Future.value().then((_) {});
+}

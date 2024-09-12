@@ -16,3 +16,5 @@ dependencies:
 
 dev_dependencies:
   http: ^1.2.1
+  pub_semver: ^2.1.4
+  collection: ^1.16.0
