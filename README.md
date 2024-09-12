@@ -45,6 +45,12 @@ include: package:rexios_lints/{dart|flutter}/package_extra.yaml
 
 The `extra` rulesets include custom lint rules created with the [custom_lint](https://pub.dev/packages/custom_lint) package. See the `custom_lint` documentation for help configuring custom lints.
 
+To check for custom lint issues in CI run the following command:
+
+```console
+dart run custom_lint
+```
+
 ## Justification
 
 ### core
