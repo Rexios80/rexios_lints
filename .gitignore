@@ -10,3 +10,5 @@ build/
 pubspec.lock
 
 .DS_Store
+
+*.log
