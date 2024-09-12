@@ -8,7 +8,6 @@ class _RexiosLinter extends PluginBase {
   List<LintRule> getLintRules(CustomLintConfigs configs) => [];
 }
 
-// TODO: Dart SDK version lint (must be 3+ etc)
 // TODO: No raw futures
 // TODO: DateTime.timestamp() instead of DateTime.now()
 // TODO: File path string literal bad (not cross platform)
