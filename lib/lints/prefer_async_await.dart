@@ -6,7 +6,7 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 class PreferAsyncAwait extends DartLintRule {
   static const _code = LintCode(
     name: 'prefer_async_await',
-    problemMessage: 'Prefer async/await over using raw futures',
+    problemMessage: 'Prefer async/await over using raw futures.',
     url:
         'https://dart.dev/effective-dart/usage#prefer-asyncawait-over-using-raw-futures',
     errorSeverity: ErrorSeverity.INFO,
