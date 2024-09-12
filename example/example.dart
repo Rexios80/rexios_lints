@@ -1,3 +1,5 @@
+// ignore_for_file: document_ignores
+
 // ignore: prefer_single_quotes
 const string = "";
 
