@@ -150,7 +150,17 @@ The `extra` rulesets include custom lint rules created with the [custom_lint](ht
 
 ### extra
 
+do_not_use_raw_paths
+
+- Safety
+- Raw path strings (e.g. `'/path/to/file'`) are platform-specific. Use the `join` method from the [path](https://pub.dev/packages/path) package instead.
+
 [prefer_async_await](https://dart.dev/effective-dart/usage#prefer-asyncawait-over-using-raw-futures)
 
 - Readability
 - `async`/`await` is more readable than `Future.then`
+
+prefer_timestamps
+
+- Safety
+- Creating anything other than UTC timestamps with `DateTime.timestamp()` could lead to storing bad data

@@ -1,5 +1,7 @@
 // ignore_for_file: document_ignores
 
+import 'dart:io';
+
 // ignore: prefer_single_quotes
 const string = "";
 
@@ -46,4 +48,18 @@ void preferAsyncAwait() {
 void preferTimestamps() {
   // expect_lint: prefer_timestamps
   DateTime.now();
+  DateTime.timestamp();
+}
+
+void doNotUseRawPaths() {
+  // expect_lint: do_not_use_raw_paths
+  Directory('path/to/directory');
+  // expect_lint: do_not_use_raw_paths
+  File('path/to/file');
+  // expect_lint: do_not_use_raw_paths
+  Link('path/to/entity');
+
+  // expect_lint: do_not_use_raw_paths
+  Directory('path\\to\\directory');
+  File('file.txt');
 }
