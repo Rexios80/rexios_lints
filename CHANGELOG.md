@@ -1,3 +1,7 @@
+## 8.2.0
+
+- Adds a fix for `do_not_use_raw_paths`
+
 ## 8.1.0
 
 - Adds `{dart|flutter}/core_extra.yaml` rulesets
