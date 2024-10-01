@@ -1,13 +1,24 @@
 // ignore_for_file: document_ignores
 
+import 'dart:async';
 import 'dart:io';
 
 // ignore: prefer_single_quotes
 const string = "";
 
+Future<void> future() async {}
+
 void unawaitedFutures() async {
   // ignore: unawaited_futures
-  Future.delayed(Duration.zero);
+  future();
+  await future();
+  unawaited(future());
+}
+
+void discardedFutures() {
+  // ignore: discarded_futures
+  future();
+  unawaited(future());
 }
 
 void requireTrailingCommas(

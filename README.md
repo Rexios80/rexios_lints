@@ -75,6 +75,11 @@ dart run custom_lint
 - Safety
 - Without this rule there is no warning if a conditional import does not exist
 
+[discarded_futures](https://dart.dev/tools/linter-rules/discarded_futures)
+
+- Safety
+- Calling async functions in non-async methods may be unintentional and cause unintended side effects
+
 [document_ignores](https://dart.dev/tools/linter-rules/document_ignores)
 
 - Technical debt

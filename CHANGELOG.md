@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds `discarded_futures`
+
 ## 8.2.0
 
 - Adds a fix for `do_not_use_raw_paths`

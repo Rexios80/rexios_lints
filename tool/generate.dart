@@ -5,6 +5,7 @@ final core = [
   'always_use_package_imports',
   'avoid_types_on_closure_parameters',
   'conditional_uri_does_not_exist',
+  'discarded_futures',
   'document_ignores',
   'invalid_runtime_check_with_js_interop_types',
   'leading_newlines_in_multiline_strings',
