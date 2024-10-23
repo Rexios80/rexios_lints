@@ -46,11 +46,24 @@ class Rule {
     required this.sinceDartSdk,
   });
 
-  factory Rule.fromJson(Map<String, dynamic> json) => Rule(
-        name: json['name'],
-        description: json['description'],
-        state: json['state'],
-        sets: Set<String>.from(json['sets']),
-        sinceDartSdk: Version.parse(json['sinceDartSdk']),
-      );
+  factory Rule.fromJson(Map<String, dynamic> json) {
+    String padZeros(String version) {
+      final parts = version.split('-');
+      final numbers = parts[0].split('.');
+      while (numbers.length < 3) {
+        numbers.add('0');
+      }
+      parts[0] = numbers.join('.');
+      return parts.join('-');
+    }
+
+    final sinceDartSdk = padZeros(json['sinceDartSdk']);
+    return Rule(
+      name: json['name'],
+      description: json['description'],
+      state: json['state'],
+      sets: Set<String>.from(json['sets']),
+      sinceDartSdk: Version.parse(sinceDartSdk),
+    );
+  }
 }

@@ -28,7 +28,9 @@ class PreferTimestamps extends DartLintRule {
       final targetType = node.staticType;
       if (targetType == null ||
           node.constructorName.name?.name != 'now' ||
-          !dateTimeTypeChecker.isExactlyType(targetType)) return;
+          !dateTimeTypeChecker.isExactlyType(targetType)) {
+        return;
+      }
 
       reporter.atNode(node, _code);
     });

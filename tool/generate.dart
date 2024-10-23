@@ -7,22 +7,24 @@ final core = [
   'conditional_uri_does_not_exist',
   'discarded_futures',
   'document_ignores',
-  'invalid_runtime_check_with_js_interop_types',
   'leading_newlines_in_multiline_strings',
   'omit_local_variable_types',
   'prefer_final_in_for_each',
   'prefer_final_locals',
   'prefer_single_quotes',
   'require_trailing_commas',
-  // 'use_truncating_division', // TODO: Add with Dart 3.6.0 stable
   'unawaited_futures',
   'unnecessary_breaks',
   'unnecessary_lambdas',
   'unnecessary_parenthesis',
+  'use_truncating_division',
 ]..sort();
 
 final flutter = [
   ...core,
+  'prefer_const_constructors',
+  'prefer_const_declarations',
+  'prefer_const_literals_to_create_immutables',
   'use_colored_box',
   'use_decorated_box',
 ]..sort();

@@ -1,6 +1,17 @@
-## NEXT
+## 9.0.0
 
-- Adds `discarded_futures`
+- Updates the SDK lower-bound to `3.6.0`
+- Upgrades `lints` to `5.0.0`
+- Upgrades `flutter_lints` to `5.0.0`
+- Adds the following lints to `core`
+  - `discarded_futures`
+  - `use_truncating_division`
+- Removes the following rules from `core` that were added to `lints/recommended`
+  - `invalid_runtime_check_with_js_interop_types`
+- Adds the following rules to `flutter` that were removed from `flutter_lints`
+  - `prefer_const_constructors`
+  - `prefer_const_declarations`
+  - `prefer_const_literals_to_create_immutables`
 
 ## 8.2.0
 

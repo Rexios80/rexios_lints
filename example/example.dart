@@ -51,9 +51,9 @@ void preferFinal() {
   print(i);
 }
 
-void preferAsyncAwait() {
+void preferAsyncAwait() async {
   // expect_lint: prefer_async_await
-  Future.value().then((_) {});
+  await Future.value().then((_) {});
 }
 
 void preferTimestamps() {

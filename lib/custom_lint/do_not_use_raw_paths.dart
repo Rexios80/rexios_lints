@@ -30,7 +30,9 @@ class DoNotUseRawPaths extends DartLintRule {
     context.registry.addInstanceCreationExpression((node) {
       final targetType = node.staticType;
       if (targetType == null ||
-          !fileSystemEntityTypeChecker.isAssignableFromType(targetType)) return;
+          !fileSystemEntityTypeChecker.isAssignableFromType(targetType)) {
+        return;
+      }
 
       final arguments = node.argumentList.arguments;
       if (arguments.isEmpty) return;

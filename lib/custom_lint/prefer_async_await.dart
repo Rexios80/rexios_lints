@@ -28,7 +28,9 @@ class PreferAsyncAwait extends DartLintRule {
       final targetType = node.target?.staticType;
       if (targetType == null ||
           node.methodName.name != 'then' ||
-          !futreTypeChecker.isExactlyType(targetType)) return;
+          !futreTypeChecker.isExactlyType(targetType)) {
+        return;
+      }
 
       reporter.atNode(node, _code);
     });
