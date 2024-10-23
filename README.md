@@ -141,7 +141,27 @@ dart run custom_lint
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
 
+[use_truncating_division](https://dart.dev/tools/linter-rules/use_truncating_division)
+
+- Brevity
+- `a ~/ b` is more concise than `(a / b).toInt()`
+
 ### flutter/core
+
+[prefer_const_constructors](https://dart.dev/tools/linter-rules/prefer_const_constructors)
+
+- Performance
+- Const constructors improve performance
+
+[prefer_const_declarations](https://dart.dev/tools/linter-rules/prefer_const_declarations)
+
+- Performance
+- Const constructors improve performance
+
+[prefer_const_literals_to_create_immutables](https://dart.dev/tools/linter-rules/prefer_const_literals_to_create_immutables)
+
+- Performance
+- Const constructors improve performance
 
 [use_colored_box](https://dart.dev/tools/linter-rules/use_colored_box)
 
