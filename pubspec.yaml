@@ -11,8 +11,8 @@ dependencies:
   flutter_lints: ^5.0.0
   analyzer: ^6.3.0
   analyzer_plugin: ^0.11.3
-  custom_lint: ^0.6.7
-  custom_lint_builder: ^0.6.7
+  custom_lint: ^0.7.0
+  custom_lint_builder: ^0.7.0
 
 dev_dependencies:
   http: ^1.2.1
