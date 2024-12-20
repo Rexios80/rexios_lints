@@ -1,3 +1,7 @@
+## 9.1.0
+
+- Removes `discarded_futures` since it is too annoying
+
 ## 9.0.0
 
 - Updates the SDK lower-bound to `3.6.0`

@@ -15,12 +15,6 @@ void unawaitedFutures() async {
   unawaited(future());
 }
 
-void discardedFutures() {
-  // ignore: discarded_futures
-  future();
-  unawaited(future());
-}
-
 void requireTrailingCommas(
     int param1,
     int param2,
