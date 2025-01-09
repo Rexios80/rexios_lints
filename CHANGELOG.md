@@ -1,3 +1,7 @@
+## 9.2.0
+
+- Supports `analyzer` version `7.0.0`
+
 ## 9.1.0
 
 - Removes `discarded_futures` since it is too annoying

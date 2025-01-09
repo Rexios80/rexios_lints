@@ -8,6 +8,7 @@ final core = [
   'document_ignores',
   'leading_newlines_in_multiline_strings',
   'omit_local_variable_types',
+  // 'omit_obvious_property_types', // TODO: Add with Dart 3.7.0
   'prefer_final_in_for_each',
   'prefer_final_locals',
   'prefer_single_quotes',
@@ -16,6 +17,7 @@ final core = [
   'unnecessary_breaks',
   'unnecessary_lambdas',
   'unnecessary_parenthesis',
+  // 'unnecessary_underscores', // TODO: Add with Dart 3.7.0
   'use_truncating_division',
 ]..sort();
 
