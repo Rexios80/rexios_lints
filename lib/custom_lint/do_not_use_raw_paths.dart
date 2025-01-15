@@ -40,8 +40,10 @@ class DoNotUseRawPaths extends DartLintRule {
       final pathArgument = arguments.first;
       if (pathArgument is! StringLiteral) return;
 
-      final path = pathArgument.stringValue;
-      if (path == null || !_pathSeparatorRegex.hasMatch(path)) return;
+      // Strip quotes from source
+      final path = RegExp(r'''(['"]{1,3})([\s\S]*?)\1''')
+          .firstMatch(pathArgument.toSource())![2]!;
+      if (!_pathSeparatorRegex.hasMatch(path)) return;
 
       reporter.atNode(pathArgument, _code, data: path);
     });
@@ -59,7 +61,9 @@ class _UsePathJoinFix extends DartFix {
     CustomLintContext context,
     AnalysisError analysisError,
     List<AnalysisError> others,
-  ) {
+  ) async {
+    final resolved = await resolver.getResolvedUnitResult();
+
     context.registry.addInstanceCreationExpression((node) {
       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;
 
@@ -73,10 +77,24 @@ class _UsePathJoinFix extends DartFix {
       final segments = path.split(_pathSeparatorRegex);
       final segmentsString = segments.map((e) => "'$e'").join(', ');
 
+      final imports = resolved.unit.directives.whereType<ImportDirective>();
+      final pathImport = imports
+          .where((e) => e.uri.stringValue == 'package:path/path.dart')
+          .firstOrNull;
+
+      final pathAlias = pathImport?.asKeyword?.lexeme ?? 'path';
+
       builder.addDartFileEdit((builder) {
+        if (pathImport == null) {
+          builder.addSimpleInsertion(
+            imports.last.end,
+            "\nimport 'package:path/path.dart' as path;",
+          );
+        }
+
         builder.addSimpleReplacement(
           analysisError.sourceRange,
-          'path.join($segmentsString)',
+          '$pathAlias.join($segmentsString)',
         );
       });
     });
