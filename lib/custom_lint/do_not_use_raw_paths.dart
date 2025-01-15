@@ -4,6 +4,7 @@ import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
 final _pathSeparatorRegex = RegExp(r'[\\/]');
+final _stringRegex = RegExp(r'''(['"]{1,3})([\s\S]*?)\1''');
 final _stringInterpolation1 = RegExp(r'^\${(.+?)}(.+?)?$');
 final _stringInterpolation2 = RegExp(r'^\$(\w+?)$');
 
@@ -43,8 +44,7 @@ class DoNotUseRawPaths extends DartLintRule {
       if (pathArgument is! StringLiteral) return;
 
       // Strip quotes from source
-      final path = RegExp(r'''(['"]{1,3})([\s\S]*?)\1''')
-          .firstMatch(pathArgument.toSource())![2]!;
+      final path = _stringRegex.firstMatch(pathArgument.toSource())![2]!;
       if (!_pathSeparatorRegex.hasMatch(path)) return;
 
       reporter.atNode(pathArgument, _code, data: path);
