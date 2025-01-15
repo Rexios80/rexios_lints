@@ -1,3 +1,10 @@
+## 9.3.0
+
+- Improves `do_not_use_raw_paths`
+  - Handles raw paths using string interpolation
+  - Adds `path` import if not already imported
+
+
 ## 9.2.0
 
 - Supports `analyzer` version `7.0.0`
