@@ -18,8 +18,9 @@ class DoNotUseRawPaths extends DartLintRule {
   );
 
   /// Type checker for `FileSystemEntity`
-  static const fileSystemEntityTypeChecker =
-      TypeChecker.fromName('FileSystemEntity');
+  static const fileSystemEntityTypeChecker = TypeChecker.fromName(
+    'FileSystemEntity',
+  );
 
   /// Constructor
   const DoNotUseRawPaths() : super(code: _code);
@@ -76,31 +77,33 @@ class _UsePathJoinFix extends DartFix {
       );
 
       final path = analysisError.data as String;
-      final segmentsString = path.split(_pathSeparatorRegex).map(
-        (segment) {
-          final si1Match = _stringInterpolation1.firstMatch(segment);
-          if (si1Match != null) {
-            final content = si1Match[1]!;
-            if (si1Match[2] == null) {
-              // Strip interpolation
-              return content;
-            } else {
-              // Do not strip interpolation
-              return "'$segment'";
+      final segmentsString = path
+          .split(_pathSeparatorRegex)
+          .map((segment) {
+            final si1Match = _stringInterpolation1.firstMatch(segment);
+            if (si1Match != null) {
+              final content = si1Match[1]!;
+              if (si1Match[2] == null) {
+                // Strip interpolation
+                return content;
+              } else {
+                // Do not strip interpolation
+                return "'$segment'";
+              }
             }
-          }
 
-          final si2Match = _stringInterpolation2.firstMatch(segment);
-          if (si2Match != null) return si2Match[1]!;
+            final si2Match = _stringInterpolation2.firstMatch(segment);
+            if (si2Match != null) return si2Match[1]!;
 
-          return "'$segment'";
-        },
-      ).join(', ');
+            return "'$segment'";
+          })
+          .join(', ');
 
       final imports = resolved.unit.directives.whereType<ImportDirective>();
-      final pathImport = imports
-          .where((e) => e.uri.stringValue == 'package:path/path.dart')
-          .firstOrNull;
+      final pathImport =
+          imports
+              .where((e) => e.uri.stringValue == 'package:path/path.dart')
+              .firstOrNull;
 
       final pathAlias = pathImport?.prefix ?? 'path';
 

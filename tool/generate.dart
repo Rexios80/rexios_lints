@@ -31,9 +31,7 @@ final flutter = [
   'use_decorated_box',
 ]..sort();
 
-final package = [
-  'public_member_api_docs',
-]..sort();
+final package = ['public_member_api_docs']..sort();
 
 const customLint = '''
 analyzer:

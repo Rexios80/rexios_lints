@@ -1,3 +1,7 @@
+## 10.0.1
+
+- Formatting
+
 ## 10.0.0
 
 - Updates the SDK lower-bound to `3.7.0`

@@ -9,8 +9,8 @@ PluginBase createPlugin() => _RexiosLinter();
 class _RexiosLinter extends PluginBase {
   @override
   List<LintRule> getLintRules(CustomLintConfigs configs) => [
-        DoNotUseRawPaths(),
-        PreferAsyncAwait(),
-        PreferTimestamps(),
-      ];
+    DoNotUseRawPaths(),
+    PreferAsyncAwait(),
+    PreferTimestamps(),
+  ];
 }
