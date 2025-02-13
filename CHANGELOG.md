@@ -1,3 +1,11 @@
+## 10.0.0
+
+- Updates the SDK lower-bound to `3.7.0`
+- Adds the following lints to `core`:
+  - `omit_obvious_property_types`
+  - `unnecessary_async`
+  - `unnecessary_underscores`
+
 ## 9.3.0
 
 - Improves `do_not_use_raw_paths`

@@ -9,6 +9,7 @@ linter:
     - document_ignores
     - leading_newlines_in_multiline_strings
     - omit_local_variable_types
+    - omit_obvious_property_types
     - prefer_const_constructors
     - prefer_const_declarations
     - prefer_const_literals_to_create_immutables
@@ -17,9 +18,11 @@ linter:
     - prefer_single_quotes
     - require_trailing_commas
     - unawaited_futures
+    - unnecessary_async
     - unnecessary_breaks
     - unnecessary_lambdas
     - unnecessary_parenthesis
+    - unnecessary_underscores
     - use_colored_box
     - use_decorated_box
     - use_truncating_division

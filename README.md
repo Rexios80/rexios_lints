@@ -95,6 +95,11 @@ dart run custom_lint
 - Brevity
 - The type checker can inform you of the type if you need to see it
 
+[omit_obvious_property_types](https://dart.dev/tools/linter-rules/omit_obvious_property_types)
+
+- Brevity
+- The type checker can inform you of the type if you need to see it
+
 [prefer_final_in_for_each](https://dart.dev/tools/linter-rules/prefer_final_in_for_each)
 
 - Safety
@@ -120,6 +125,11 @@ dart run custom_lint
 - Safety
 - Ensures that async calls in async methods aren't accidentally ignored
 
+[unnecessary_async](https://dart.dev/tools/linter-rules/unnecessary_async)
+
+- Brevity
+- It's easy to end up with unnecessary async modifiers when refactoring
+
 [unnecessary_breaks](https://dart.dev/tools/linter-rules/unnecessary_breaks)
 
 - Brevity
@@ -135,6 +145,11 @@ dart run custom_lint
 
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
+
+[unnecessary_underscores](https://dart.dev/tools/linter-rules/unnecessary_underscores)
+
+- Brevity
+- Since Dart 3.7, underscores are no longer binding. This means that multi-underscore variables such as `__`, `___`, etc. are no longer necessary.
 
 [use_truncating_division](https://dart.dev/tools/linter-rules/use_truncating_division)
 
