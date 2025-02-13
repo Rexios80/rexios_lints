@@ -26,7 +26,10 @@ void main() async {
   for (final entry in groups.entries.sortedBy<VersionRange>((e) => e.key)) {
     print('${entry.key}:');
     for (final rule in entry.value) {
-      print('  - ${rule.name}: ${rule.description}');
+      final aboutUrl = 'https://dart.dev/tools/linter-rules/${rule.name}';
+      print('  ${rule.name}:');
+      print('    - $aboutUrl');
+      print('    - ${rule.description}');
     }
   }
 }
