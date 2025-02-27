@@ -1,5 +1,6 @@
 ## 10.1.0
 
+- Fixes issue with `do_not_use_raw_paths` fix ([#2](https://github.com/Rexios80/rexios_lints/issues/2))
 - Updates `analyzer_plugin` to `0.13.0`
 
 ## 10.0.1
