@@ -1,3 +1,7 @@
+## 10.1.0
+
+- Updates `analyzer_plugin` to `0.13.0`
+
 ## 10.0.1
 
 - Formatting
