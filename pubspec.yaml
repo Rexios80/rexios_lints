@@ -4,7 +4,7 @@ version: 11.0.0
 homepage: https://github.com/Rexios80/rexios_lints
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
   lints: ^5.0.0
