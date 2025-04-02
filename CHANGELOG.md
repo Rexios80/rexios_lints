@@ -1,3 +1,7 @@
+## 11.0.1
+
+- Fixes an issue where imports couldn't be properly added to files without existing import statements
+
 ## 11.0.0
 
 - Additions to `dart`:

@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:rexios_lints/custom_lint/utils.dart';
 
 /// Prefer immutable classes
 class PreferImmutableClasses extends DartLintRule {
@@ -59,17 +60,12 @@ class _MakeImmutableFix extends DartFix {
         priority: 999,
       );
 
-      final imports = resolved.unit.directives.whereType<ImportDirective>();
-      final metaImport =
-          imports
-              .where((e) => e.uri.stringValue == 'package:meta/meta.dart')
-              .firstOrNull;
-
       builder.addDartFileEdit((builder) {
+        final metaImport = resolved.importFromUri('package:meta/meta.dart');
         if (metaImport == null) {
           builder.addSimpleInsertion(
-            imports.last.end,
-            "\nimport 'package:meta/meta.dart';",
+            resolved.lastImportEnd,
+            resolved.createImportText('package:meta/meta.dart'),
           );
         }
 
