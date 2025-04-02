@@ -8,6 +8,7 @@
   - `prefer_const_constructors_in_immutables`
 - Additions to `extra`:
   - `prefer_immutable_classes`
+- Fixes issue with `do_not_use_raw_paths` fix
 
 ## 10.1.0
 

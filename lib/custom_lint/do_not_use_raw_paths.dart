@@ -79,6 +79,7 @@ class _UsePathJoinFix extends DartFix {
       final path = analysisError.data as String;
       final segmentsString = path
           .split(_pathSeparatorRegex)
+          .skip(path.startsWith(_pathSeparatorRegex) ? 1 : 0)
           .map((segment) {
             final si1Match = _stringInterpolation1.firstMatch(segment);
             if (si1Match != null) {
