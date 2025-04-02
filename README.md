@@ -218,6 +218,11 @@ do_not_use_raw_paths
 - Readability
 - `async`/`await` is more readable than `Future.then`
 
+prefer_immutable_classes
+
+- Performance
+- Immutable classes can have const constructors
+
 prefer_timestamps
 
 - Safety
