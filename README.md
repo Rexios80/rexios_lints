@@ -135,6 +135,11 @@ dart run custom_lint
 - Brevity
 - Switch cases no longer need explicit break statements as of Dart 3
 
+[unnecessary_ignore](https://dart.dev/tools/linter-rules/unnecessary_ignore)
+
+- Brevity
+- Extra ignore comments are not necessary
+
 [unnecessary_lambdas](https://dart.dev/tools/linter-rules/unnecessary_lambdas)
 
 - Brevity
@@ -151,10 +156,22 @@ dart run custom_lint
 - Brevity
 - Since Dart 3.7, underscores are no longer binding. This means that multi-underscore variables such as `__`, `___`, etc. are no longer necessary.
 
+[use_null_aware_elements](https://dart.dev/tools/linter-rules/use_null_aware_elements)
+
+- Brevity
+- `{?key: "value"}` is more concise than `{if (key != null) key: "value"}`
+
 [use_truncating_division](https://dart.dev/tools/linter-rules/use_truncating_division)
 
 - Brevity
 - `a ~/ b` is more concise than `(a / b).toInt()`
+
+### dart/core
+
+[prefer_const_constructors_in_immutables](https://dart.dev/tools/linter-rules/prefer_const_constructors_in_immutables)
+
+- Performance
+- Const constructors improve performance
 
 ### flutter/core
 

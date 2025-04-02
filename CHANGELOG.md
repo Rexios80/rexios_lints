@@ -1,3 +1,14 @@
+## 11.0.0
+
+- Requires Dart `3.8.0`
+- Additions to `core`:
+  - `unnecessary_ignore`
+  - `use_null_aware_elements`
+- Additions to `dart`:
+  - `prefer_const_constructors_in_immutables`
+- Additions to `extra`:
+  - `prefer_immutable_classes`
+
 ## 10.1.0
 
 - Fixes issue with `do_not_use_raw_paths` fix ([#2](https://github.com/Rexios80/rexios_lints/issues/2))
