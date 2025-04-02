@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:meta/meta.dart';
 
 // ignore: prefer_single_quotes
 const string = "";
@@ -23,15 +24,17 @@ void requireTrailingCommas(
     // ignore: require_trailing_commas
     int param5) {}
 
+@immutable
 class UseSuperParametersBase {
   final int param;
 
-  UseSuperParametersBase(this.param);
+  const UseSuperParametersBase(this.param);
 }
 
+@immutable
 class UseSuperParameters extends UseSuperParametersBase {
   // ignore: use_super_parameters
-  UseSuperParameters(int param) : super(param);
+  const UseSuperParameters(int param) : super(param);
 }
 
 void preferFinal() {
@@ -67,4 +70,11 @@ void doNotUseRawPaths() {
   // expect_lint: do_not_use_raw_paths
   Directory('path\\to\\directory');
   File('file.txt');
+}
+
+// expect_lint: prefer_immutable_classes
+class PreferImmutableClasses {
+  final int value;
+
+  PreferImmutableClasses(this.value);
 }

@@ -16,11 +16,15 @@ final core = [
   'unawaited_futures',
   'unnecessary_async',
   'unnecessary_breaks',
+  // 'unnecessary_ignore', // TODO: Add with Dart 3.8.0
   'unnecessary_lambdas',
   'unnecessary_parenthesis',
   'unnecessary_underscores',
+  // 'use_null_aware_elements', // TODO: Add with Dart 3.8.0
   'use_truncating_division',
 ]..sort();
+
+final dart = [...core, 'prefer_const_constructors_in_immutables']..sort();
 
 final flutter = [
   ...core,
@@ -42,7 +46,7 @@ void main() {
   write(
     folder: 'dart',
     coreInclude: 'package:lints/recommended.yaml',
-    coreLints: core,
+    coreLints: dart,
     packageLints: package,
   );
 
