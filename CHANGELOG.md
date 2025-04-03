@@ -1,3 +1,7 @@
+## 11.0.2
+
+- Does not enforce `prefer_immutable_classes` on classes with no fields
+
 ## 11.0.1
 
 - Fixes an issue where imports couldn't be properly added to files without existing import statements

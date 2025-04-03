@@ -26,7 +26,10 @@ class PreferImmutableClasses extends DartLintRule {
       final isImmutable = node.metadata.any((e) => e.name.name == 'immutable');
       if (isImmutable) return;
 
-      final hasOnlyGetters = node.members.whereType<FieldDeclaration>().every(
+      final fields = node.members.whereType<FieldDeclaration>();
+      if (fields.isEmpty) return;
+
+      final hasOnlyGetters = fields.every(
         (e) => !e.isStatic && e.fields.isFinal,
       );
 
