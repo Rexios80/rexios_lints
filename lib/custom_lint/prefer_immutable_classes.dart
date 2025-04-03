@@ -23,6 +23,12 @@ class PreferImmutableClasses extends DartLintRule {
     CustomLintContext context,
   ) {
     context.registry.addClassDeclaration((node) {
+      final hasConstructorWithParameters = node.members.any(
+        (e) =>
+            e is ConstructorDeclaration && e.parameters.parameters.isNotEmpty,
+      );
+      if (!hasConstructorWithParameters) return;
+
       final isImmutable = [
         ...node.metadata.map((e) => e.name.name),
         ...?node.declaredElement?.allSupertypes
@@ -32,13 +38,9 @@ class PreferImmutableClasses extends DartLintRule {
       ].any((e) => e == 'immutable');
       if (isImmutable) return;
 
-      final fields = node.members.whereType<FieldDeclaration>();
-      if (fields.isEmpty) return;
-
-      final hasOnlyGetters = fields.every(
+      final hasOnlyGetters = node.members.whereType<FieldDeclaration>().every(
         (e) => !e.isStatic && e.fields.isFinal,
       );
-
       if (!hasOnlyGetters) return;
 
       reporter.atToken(node.name, _code);

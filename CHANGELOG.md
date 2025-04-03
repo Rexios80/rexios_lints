@@ -1,3 +1,7 @@
+## 11.0.4
+
+- Does not enforce `prefer_immutable_classes` on classes that have zero parameter constructors
+
 ## 11.0.3
 
 - Does not enforce `prefer_immutable_classes` on classes that extend immutable classes
