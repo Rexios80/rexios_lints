@@ -1,3 +1,7 @@
+## 11.0.3
+
+- Does not enforce `prefer_immutable_classes` on classes that extend immutable classes
+
 ## 11.0.2
 
 - Does not enforce `prefer_immutable_classes` on classes with no fields
