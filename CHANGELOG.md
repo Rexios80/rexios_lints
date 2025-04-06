@@ -1,3 +1,7 @@
+## 11.0.5
+
+- Inserts `@immutable` annotation after documentation comment
+
 ## 11.0.4
 
 - Does not enforce `prefer_immutable_classes` on classes that have zero parameter constructors

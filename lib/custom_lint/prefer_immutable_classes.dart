@@ -80,7 +80,10 @@ class _MakeImmutableFix extends DartFix {
           );
         }
 
-        builder.addSimpleInsertion(node.offset, '@immutable\n');
+        builder.addSimpleInsertion(
+          node.firstTokenAfterCommentAndMetadata.offset,
+          '@immutable\n',
+        );
       });
     });
   }
