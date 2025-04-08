@@ -16,11 +16,11 @@ final core = [
   'unawaited_futures',
   'unnecessary_async',
   'unnecessary_breaks',
-  // 'unnecessary_ignore', // TODO: Add with Dart 3.8.0
+  'unnecessary_ignore',
   'unnecessary_lambdas',
   'unnecessary_parenthesis',
   'unnecessary_underscores',
-  // 'use_null_aware_elements', // TODO: Add with Dart 3.8.0
+  'use_null_aware_elements',
   'use_truncating_division',
 ]..sort();
 
