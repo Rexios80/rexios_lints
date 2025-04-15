@@ -1,3 +1,7 @@
+## 11.0.6
+
+- Does not enforce `prefer_immutable_classes` on classes with mutable supertypes
+
 ## 11.0.5
 
 - Inserts `@immutable` annotation after documentation comment

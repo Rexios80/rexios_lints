@@ -89,3 +89,13 @@ class ImmutableSubclass extends ImmutableSupertype {
 
   const ImmutableSubclass(this.asdf);
 }
+
+class MutableSupertype {
+  int value;
+
+  MutableSupertype(this.value);
+}
+
+class MutableSubclass extends MutableSupertype {
+  MutableSubclass(super.value);
+}
