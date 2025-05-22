@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:rexios_lints/custom_lint/utils.dart';
 
 final _pathSeparatorRegex = RegExp(r'[\\/]');
 final _stringInterpolation1 = RegExp(r'^\${(.+?)}(.+?)?$');
@@ -100,22 +101,16 @@ class _UsePathJoinFix extends DartFix {
           })
           .join(', ');
 
-      final imports = resolved.unit.directives.whereType<ImportDirective>();
-      final pathImport =
-          imports
-              .where((e) => e.uri.stringValue == 'package:path/path.dart')
-              .firstOrNull;
-
-      final pathAlias = pathImport?.prefix ?? 'path';
-
       builder.addDartFileEdit((builder) {
+        final pathImport = resolved.importFromUri('package:path/path.dart');
         if (pathImport == null) {
           builder.addSimpleInsertion(
-            imports.last.end,
-            "\nimport 'package:path/path.dart' as path;",
+            resolved.lastImportEnd,
+            resolved.createImportText('package:path/path.dart', as: 'path'),
           );
         }
 
+        final pathAlias = pathImport?.prefix ?? 'path';
         builder.addSimpleReplacement(
           analysisError.sourceRange,
           '$pathAlias.join($segmentsString)',

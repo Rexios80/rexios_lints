@@ -78,3 +78,24 @@ class PreferImmutableClasses {
 
   PreferImmutableClasses(this.value);
 }
+
+@immutable
+class ImmutableSupertype {
+  const ImmutableSupertype();
+}
+
+class ImmutableSubclass extends ImmutableSupertype {
+  final String asdf;
+
+  const ImmutableSubclass(this.asdf);
+}
+
+class MutableSupertype {
+  int value;
+
+  MutableSupertype(this.value);
+}
+
+class MutableSubclass extends MutableSupertype {
+  MutableSubclass(super.value);
+}

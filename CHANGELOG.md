@@ -1,3 +1,27 @@
+## 11.0.6
+
+- Does not enforce `prefer_immutable_classes` on classes with mutable supertypes
+
+## 11.0.5
+
+- Inserts `@immutable` annotation after documentation comment
+
+## 11.0.4
+
+- Does not enforce `prefer_immutable_classes` on classes that have zero parameter constructors
+
+## 11.0.3
+
+- Does not enforce `prefer_immutable_classes` on classes that extend immutable classes
+
+## 11.0.2
+
+- Does not enforce `prefer_immutable_classes` on classes with no fields
+
+## 11.0.1
+
+- Fixes an issue where imports couldn't be properly added to files without existing import statements
+
 ## 11.0.0
 
 - Requires Dart `3.8.0`

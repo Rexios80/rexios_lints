@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:rexios_lints/custom_lint/utils.dart';
 
 /// Prefer immutable classes
 class PreferImmutableClasses extends DartLintRule {
@@ -22,13 +23,29 @@ class PreferImmutableClasses extends DartLintRule {
     CustomLintContext context,
   ) {
     context.registry.addClassDeclaration((node) {
-      final isImmutable = node.metadata.any((e) => e.name.name == 'immutable');
+      final element = node.declaredElement;
+      if (element == null) return;
+
+      final hasConstructorWithParameters = node.members.any(
+        (e) =>
+            e is ConstructorDeclaration && e.parameters.parameters.isNotEmpty,
+      );
+      if (!hasConstructorWithParameters) return;
+
+      final isImmutable = [
+        ...node.metadata.map((e) => e.name.name),
+        ...element.allSupertypes
+            .expand((e) => e.element.metadata)
+            .map((e) => e.element?.displayName)
+            .whereType<String>(),
+      ].any((e) => e == 'immutable');
       if (isImmutable) return;
 
-      final hasOnlyGetters = node.members.whereType<FieldDeclaration>().every(
-        (e) => !e.isStatic && e.fields.isFinal,
-      );
-
+      final hasOnlyGetters =
+          node.members.whereType<FieldDeclaration>().every(
+            (e) => !e.isStatic && e.fields.isFinal,
+          ) &&
+          element.allSupertypes.every((e) => e.setters.isEmpty);
       if (!hasOnlyGetters) return;
 
       reporter.atToken(node.name, _code);
@@ -59,21 +76,19 @@ class _MakeImmutableFix extends DartFix {
         priority: 999,
       );
 
-      final imports = resolved.unit.directives.whereType<ImportDirective>();
-      final metaImport =
-          imports
-              .where((e) => e.uri.stringValue == 'package:meta/meta.dart')
-              .firstOrNull;
-
       builder.addDartFileEdit((builder) {
+        final metaImport = resolved.importFromUri('package:meta/meta.dart');
         if (metaImport == null) {
           builder.addSimpleInsertion(
-            imports.last.end,
-            "\nimport 'package:meta/meta.dart';",
+            resolved.lastImportEnd,
+            resolved.createImportText('package:meta/meta.dart'),
           );
         }
 
-        builder.addSimpleInsertion(node.offset, '@immutable\n');
+        builder.addSimpleInsertion(
+          node.firstTokenAfterCommentAndMetadata.offset,
+          '@immutable\n',
+        );
       });
     });
   }
