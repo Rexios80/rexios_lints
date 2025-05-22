@@ -115,11 +115,6 @@ dart run custom_lint
 - Consistency
 - Enforces consistency with the rest of the Dart ecosystem
 
-[require_trailing_commas](https://dart.dev/tools/linter-rules/require_trailing_commas)
-
-- Readability
-- Prevents excessively long lines
-
 [unawaited_futures](https://dart.dev/tools/linter-rules/unawaited_futures)
 
 - Safety

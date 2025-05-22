@@ -8,6 +8,8 @@
   - `use_null_aware_elements`
 - Removes the following rules from `core` that were added to `lints/recommended`
   - `unnecessary_underscores`
+- Removes the following rules from `core`:
+  - `require_trailing_commas` (this rule conflicts with the new formatter)
 
 ## 11.0.6
 

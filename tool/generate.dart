@@ -12,7 +12,6 @@ final core = [
   'prefer_final_in_for_each',
   'prefer_final_locals',
   'prefer_single_quotes',
-  'require_trailing_commas',
   'unawaited_futures',
   'unnecessary_async',
   'unnecessary_breaks',
