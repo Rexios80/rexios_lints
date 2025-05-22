@@ -2,6 +2,7 @@
 
 - Requires Dart `3.8.0`
 - Upgrades `lints` to `6.0.0`
+- Upgrades `flutter_lints` to `6.0.0`
 - Additions to `core`:
   - `unnecessary_ignore`
   - `use_null_aware_elements`
