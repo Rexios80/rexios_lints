@@ -1,9 +1,12 @@
 ## 12.0.0
 
 - Requires Dart `3.8.0`
+- Upgrades `lints` to `6.0.0`
 - Additions to `core`:
   - `unnecessary_ignore`
   - `use_null_aware_elements`
+- Removes the following rules from `core` that were added to `lints/recommended`
+  - `unnecessary_underscores`
 
 ## 11.0.6
 

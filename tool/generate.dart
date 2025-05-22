@@ -19,7 +19,6 @@ final core = [
   'unnecessary_ignore',
   'unnecessary_lambdas',
   'unnecessary_parenthesis',
-  'unnecessary_underscores',
   'use_null_aware_elements',
   'use_truncating_division',
 ]..sort();

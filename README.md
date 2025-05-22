@@ -151,11 +151,6 @@ dart run custom_lint
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
 
-[unnecessary_underscores](https://dart.dev/tools/linter-rules/unnecessary_underscores)
-
-- Brevity
-- Since Dart 3.7, underscores are no longer binding. This means that multi-underscore variables such as `__`, `___`, etc. are no longer necessary.
-
 [use_null_aware_elements](https://dart.dev/tools/linter-rules/use_null_aware_elements)
 
 - Brevity
