@@ -1,3 +1,10 @@
+## 12.0.0
+
+- Requires Dart `3.8.0`
+- Additions to `core`:
+  - `unnecessary_ignore`
+  - `use_null_aware_elements`
+
 ## 11.0.6
 
 - Does not enforce `prefer_immutable_classes` on classes with mutable supertypes
@@ -24,10 +31,6 @@
 
 ## 11.0.0
 
-- Requires Dart `3.8.0`
-- Additions to `core`:
-  - `unnecessary_ignore`
-  - `use_null_aware_elements`
 - Additions to `dart`:
   - `prefer_const_constructors_in_immutables`
 - Additions to `extra`:
