@@ -16,14 +16,6 @@ void unawaitedFutures() async {
   unawaited(future());
 }
 
-void requireTrailingCommas(
-    int param1,
-    int param2,
-    int param3,
-    int param4,
-    // ignore: require_trailing_commas
-    int param5) {}
-
 @immutable
 class UseSuperParametersBase {
   final int param;

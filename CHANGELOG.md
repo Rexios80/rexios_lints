@@ -1,3 +1,7 @@
+## 12.0.1
+
+- Fixes deprecations
+
 ## 12.0.0
 
 - Requires Dart `3.8.0`

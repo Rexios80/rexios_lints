@@ -23,7 +23,7 @@ class PreferImmutableClasses extends DartLintRule {
     CustomLintContext context,
   ) {
     context.registry.addClassDeclaration((node) {
-      final element = node.declaredElement;
+      final element = node.declaredFragment?.element;
       if (element == null) return;
 
       final hasConstructorWithParameters = node.members.any(
@@ -35,8 +35,8 @@ class PreferImmutableClasses extends DartLintRule {
       final isImmutable = [
         ...node.metadata.map((e) => e.name.name),
         ...element.allSupertypes
-            .expand((e) => e.element.metadata)
-            .map((e) => e.element?.displayName)
+            .expand((e) => e.element3.metadata2.annotations)
+            .map((e) => e.element2?.displayName)
             .whereType<String>(),
       ].any((e) => e == 'immutable');
       if (isImmutable) return;
