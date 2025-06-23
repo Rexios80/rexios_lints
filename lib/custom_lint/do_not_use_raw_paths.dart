@@ -4,7 +4,7 @@ import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:rexios_lints/custom_lint/utils.dart';
 
-final _pathSeparatorRegex = RegExp(r'[\\/]');
+final _pathSeparatorRegex = RegExp(r'[\\\/]');
 final _stringInterpolation1 = RegExp(r'^\${(.+?)}(.+?)?$');
 final _stringInterpolation2 = RegExp(r'^\$(\w+?)$');
 
@@ -46,18 +46,18 @@ class DoNotUseRawPaths extends DartLintRule {
 
       // Strip leading/trailing quotes
       final pathSource = pathArgument.toSource();
-      final path = pathSource.substring(1, pathSource.length - 1);
-      if (!_pathSeparatorRegex.hasMatch(path)) return;
+      if (!_pathSeparatorRegex.hasMatch(pathSource)) return;
 
-      reporter.atNode(pathArgument, _code, data: path);
+      reporter.atNode(pathArgument, _code, data: pathSource);
     });
   }
 
   @override
-  List<Fix> getFixes() => [_UsePathJoinFix()];
+  List<Fix> getFixes() => [UsePathJoinFix()];
 }
 
-class _UsePathJoinFix extends DartFix {
+/// Fix for `do_not_use_raw_paths`
+class UsePathJoinFix extends DartFix {
   @override
   void run(
     CustomLintResolver resolver,
@@ -78,28 +78,7 @@ class _UsePathJoinFix extends DartFix {
       );
 
       final path = analysisError.data as String;
-      final segmentsString = path
-          .split(_pathSeparatorRegex)
-          .skip(path.startsWith(_pathSeparatorRegex) ? 1 : 0)
-          .map((segment) {
-            final si1Match = _stringInterpolation1.firstMatch(segment);
-            if (si1Match != null) {
-              final content = si1Match[1]!;
-              if (si1Match[2] == null) {
-                // Strip interpolation
-                return content;
-              } else {
-                // Do not strip interpolation
-                return "'$segment'";
-              }
-            }
-
-            final si2Match = _stringInterpolation2.firstMatch(segment);
-            if (si2Match != null) return si2Match[1]!;
-
-            return "'$segment'";
-          })
-          .join(', ');
+      final segmentsString = createSegmentsString(path);
 
       builder.addDartFileEdit((builder) {
         final pathImport = resolved.importFromUri('package:path/path.dart');
@@ -117,5 +96,42 @@ class _UsePathJoinFix extends DartFix {
         );
       });
     });
+  }
+
+  /// Split the given path into a list of segments
+  static String createSegmentsString(String path) {
+    final sanitized = path
+        // Replace escaped backslashes with forward slashes
+        .replaceAll(r'\\', '/')
+        // Replace unescaped backslashes with forward slashes
+        .replaceAll(r'\', '/')
+        // Remove leading raw string prefix
+        .replaceFirst("r'", "'")
+        .replaceFirst('r"', '"');
+
+    return sanitized
+        // Strip leading/trailing quotes
+        .substring(1, sanitized.length - 1)
+        .split('/')
+        .skip(path.startsWith('/') ? 1 : 0)
+        .map((segment) {
+          final si1Match = _stringInterpolation1.firstMatch(segment);
+          if (si1Match != null) {
+            final content = si1Match[1]!;
+            if (si1Match[2] == null) {
+              // Strip interpolation
+              return content;
+            } else {
+              // Do not strip interpolation
+              return "'$segment'";
+            }
+          }
+
+          final si2Match = _stringInterpolation2.firstMatch(segment);
+          if (si2Match != null) return si2Match[1]!;
+
+          return "'$segment'";
+        })
+        .join(', ');
   }
 }

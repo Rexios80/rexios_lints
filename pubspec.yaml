@@ -15,6 +15,7 @@ dependencies:
   custom_lint_builder: ^0.7.0
 
 dev_dependencies:
+  test: ^1.26.2
   http: ^1.2.1
   pub_semver: ^2.1.4
   collection: ^1.16.0
