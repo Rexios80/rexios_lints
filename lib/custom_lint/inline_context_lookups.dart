@@ -25,7 +25,7 @@ class InlineContextLookups extends DartLintRule {
   ) {
     context.registry.addMethodInvocation((node) {
       if (node.parent is VariableDeclaration ||
-          !{'of', 'Of'}.any(node.methodName.name.endsWith) ||
+          !node.methodName.name.toLowerCase().endsWith('of') ||
           node.argumentList.arguments.length != 1 ||
           node.argumentList.arguments.first.toSource() != 'context') {
         return;
