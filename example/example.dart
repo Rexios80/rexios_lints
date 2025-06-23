@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
 // ignore: prefer_single_quotes
@@ -90,4 +91,18 @@ class MutableSupertype {
 
 class MutableSubclass extends MutableSupertype {
   MutableSubclass(super.value);
+}
+
+void inlineContextLookups(BuildContext context) {
+  final navigator = Navigator.of(context);
+  navigator.pop();
+
+  // expect_lint: inline_context_lookups
+  Navigator.of(context).pop();
+
+  final accessibleNavigation = MediaQuery.maybeAccessibleNavigationOf(context);
+  print(accessibleNavigation);
+
+  // expect_lint: inline_context_lookups
+  print(MediaQuery.maybeAccessibleNavigationOf(context));
 }
