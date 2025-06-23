@@ -1,6 +1,7 @@
 ## 13.0.0
 
 - Adds `inline_context_lookups` to `extra`
+- Fixes issues with `do_not_use_raw_paths` fix
 
 ## 12.0.1
 
