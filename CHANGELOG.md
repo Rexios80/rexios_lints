@@ -1,3 +1,7 @@
+## 13.0.0
+
+- Adds `inline_context_lookups` to `extra`
+
 ## 12.0.1
 
 - Fixes deprecations

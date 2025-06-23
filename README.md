@@ -203,6 +203,11 @@ do_not_use_raw_paths
 - Safety
 - Raw path strings (e.g. `'/path/to/file'`) are platform-specific. Use the `join` method from the [path](https://pub.dev/packages/path) package instead.
 
+[inline_context_lookups](https://redd.it/1liezgz)
+
+- Performance
+- Using many inline context lookups can lead to performance issues
+
 [prefer_async_await](https://dart.dev/effective-dart/usage#prefer-asyncawait-over-using-raw-futures)
 
 - Readability
