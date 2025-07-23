@@ -13,9 +13,9 @@ dependencies:
   analyzer_plugin: ^0.13.0
   custom_lint: ^0.7.0
   custom_lint_builder: ^0.7.0
+  collection: ^1.19.1
 
 dev_dependencies:
   test: ^1.26.2
   http: ^1.2.1
   pub_semver: ^2.1.4
-  collection: ^1.16.0

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // ignore: prefer_single_quotes
@@ -111,11 +110,42 @@ void inlineContextLookups(BuildContext context) {
 }
 
 void unnecessaryContainer() {
-  const SizedBox.shrink();
+  // expect_lint: unnecessary_container
+  Container();
 
-  Container(
-    child: Text('Hello'),
-  );
+  // expect_lint: unnecessary_container
+  Container(child: Text('Hello'));
 
-  Container(color: Colors.red);
+  // expect_lint: unnecessary_container
+  Container(alignment: Alignment.center);
+
+  // expect_lint: unnecessary_container
+  Container(padding: EdgeInsets.zero);
+
+  // expect_lint: unnecessary_container
+  Container(color: Color(0x00000000));
+
+  // expect_lint: unnecessary_container
+  Container(decoration: BoxDecoration());
+
+  // expect_lint: unnecessary_container
+  Container(foregroundDecoration: BoxDecoration());
+
+  // expect_lint: unnecessary_container
+  Container(width: 0);
+
+  // expect_lint: unnecessary_container
+  Container(height: 0);
+
+  // expect_lint: unnecessary_container
+  Container(constraints: BoxConstraints());
+
+  // expect_lint: unnecessary_container
+  Container(margin: EdgeInsets.zero);
+
+  // expect_lint: unnecessary_container
+  Container(transform: Matrix4.identity());
+
+  // expect_lint: unnecessary_container
+  Container(clipBehavior: Clip.hardEdge);
 }

@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:collection/collection.dart';
 
 /// Extension on [ResolvedUnitResult]
 extension ResolvedUnitResultExtension on ResolvedUnitResult {
@@ -23,4 +24,12 @@ extension ResolvedUnitResultExtension on ResolvedUnitResult {
       return "\nimport '$uri'$alias;";
     }
   }
+}
+
+/// Extension on [ArgumentList]
+extension ArgumentListExtension on ArgumentList {
+  /// Get an argument by name
+  Expression? argumentByName(String name) => arguments.firstWhereOrNull(
+    (argument) => argument.correspondingParameter?.displayName == name,
+  );
 }
