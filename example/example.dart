@@ -147,7 +147,7 @@ void unnecessaryContainer() {
   Container(transform: Matrix4.identity());
 
   // expect_lint: unnecessary_container
-  Container(clipBehavior: Clip.hardEdge);
+  Container(clipBehavior: Clip.none);
 
   // expect_lint: unnecessary_container
   Container(width: 0, height: 0);

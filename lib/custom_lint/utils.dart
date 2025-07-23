@@ -29,7 +29,7 @@ extension ResolvedUnitResultExtension on ResolvedUnitResult {
 /// Extension on [ArgumentList]
 extension ArgumentListExtension on ArgumentList {
   /// Get an argument by name
-  Expression? argumentByName(String name) => arguments.firstWhereOrNull(
-    (argument) => argument.correspondingParameter?.displayName == name,
-  );
+  NamedExpression? argumentByName(String name) => arguments
+      .whereType<NamedExpression>()
+      .firstWhereOrNull((argument) => argument.name.label.name == name);
 }

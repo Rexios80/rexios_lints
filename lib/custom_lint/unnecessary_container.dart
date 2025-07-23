@@ -25,7 +25,7 @@ bool _canBeTransform(InstanceCreationExpression node) {
       (length == 2 || (length == 3 && hasChild));
 }
 
-/// Do not use Containers with less than 2 modifiers
+/// Do not use Containers unnecessarily
 class UnnecessaryContainer extends DartLintRule {
   static const _code = LintCode(
     name: 'unnecessary_container',
@@ -81,8 +81,7 @@ class _UseSpecializedWidgetFix extends DartFix {
     context.registry.addInstanceCreationExpression((node) {
       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;
 
-      final childArgument =
-          node.argumentList.argumentByName('child') as NamedExpression?;
+      final childArgument = node.argumentList.argumentByName('child');
       final otherArguments = node.argumentList.arguments.where(
         (argument) => argument != childArgument,
       );
