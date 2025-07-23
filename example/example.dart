@@ -148,4 +148,15 @@ void unnecessaryContainer() {
 
   // expect_lint: unnecessary_container
   Container(clipBehavior: Clip.hardEdge);
+
+  // expect_lint: unnecessary_container
+  Container(width: 0, height: 0);
+
+  // expect_lint: unnecessary_container
+  Container(width: 0, height: 0, child: Text('Hello'));
+
+  Container(
+    transform: Matrix4.identity(),
+    transformAlignment: Alignment.center,
+  );
 }

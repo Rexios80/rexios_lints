@@ -4,11 +4,32 @@ import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:rexios_lints/custom_lint/utils.dart';
 
+bool _canBeSizedBox(InstanceCreationExpression node) {
+  final hasWidth = node.argumentList.argumentByName('width') != null;
+  final hasHeight = node.argumentList.argumentByName('height') != null;
+  final hasChild = node.argumentList.argumentByName('child') != null;
+
+  final length = node.argumentList.arguments.length;
+  return hasWidth && hasHeight && (length == 2 || (length == 3 && hasChild));
+}
+
+bool _canBeTransform(InstanceCreationExpression node) {
+  final hasTransform = node.argumentList.argumentByName('transform') != null;
+  final hasTransformAlignment =
+      node.argumentList.argumentByName('transformAlignment') != null;
+  final hasChild = node.argumentList.argumentByName('child') != null;
+
+  final length = node.argumentList.arguments.length;
+  return hasTransform &&
+      hasTransformAlignment &&
+      (length == 2 || (length == 3 && hasChild));
+}
+
 /// Do not use Containers with less than 2 modifiers
 class UnnecessaryContainer extends DartLintRule {
   static const _code = LintCode(
     name: 'unnecessary_container',
-    problemMessage: 'Do not use Containers with less than 2 modifiers.',
+    problemMessage: 'Do not use Containers unnecessarily.',
     correctionMessage: 'Use specialized widgets instead.',
     errorSeverity: ErrorSeverity.INFO,
   );
@@ -26,29 +47,21 @@ class UnnecessaryContainer extends DartLintRule {
     CustomLintContext context,
   ) {
     context.registry.addInstanceCreationExpression((node) {
-      bool canBeSizedBox() {
-        final hasWidth = node.argumentList.argumentByName('width') != null;
-        final hasHeight = node.argumentList.argumentByName('height') != null;
-        final hasChild = node.argumentList.argumentByName('child') != null;
-        return hasWidth && hasHeight && hasChild;
-      }
-
-      bool canBeTransform() {
-        final hasTransform =
-            node.argumentList.argumentByName('transform') != null;
-        final hasTransformAlignment =
-            node.argumentList.argumentByName('transformAlignment') != null;
-        return hasTransform && hasTransformAlignment;
-      }
-
       final targetType = node.staticType;
       if (targetType == null ||
-          !containerTypeChecker.isExactlyType(targetType) ||
-          node.argumentList.arguments.length > 2) {
+          !containerTypeChecker.isExactlyType(targetType)) {
         return;
       }
 
-      reporter.atNode(node, _code);
+      final length = node.argumentList.arguments.length;
+      final hasChild = node.argumentList.argumentByName('child') != null;
+
+      if (length < 2 ||
+          (length == 2 && hasChild) ||
+          _canBeSizedBox(node) ||
+          _canBeTransform(node)) {
+        reporter.atNode(node, _code);
+      }
     });
   }
 
@@ -114,15 +127,28 @@ class _UseSpecializedWidgetFix extends DartFix {
           _ => null,
         };
 
-        var replacement = '$widget(${otherArgument.toSource()}';
+        if (widget == null) return;
 
-        if (childArgument != null) {
-          replacement += ', ${childArgument.toSource()})';
-        } else {
-          replacement += ')';
-        }
-
-        build(message: 'Use $widget', replacement: replacement);
+        build(
+          message: 'Use $widget',
+          replacement: '$widget${node.argumentList.toSource()}',
+        );
+      } else if (_canBeSizedBox(node)) {
+        build(
+          message: 'Use SizedBox',
+          replacement: 'SizedBox${node.argumentList.toSource()}',
+        );
+      } else if (_canBeTransform(node)) {
+        final arguments = node.argumentList.arguments
+            .whereType<NamedExpression>()
+            .map((argument) {
+              if (argument.name.label.name == 'transformAlignment') {
+                return 'alignment: ${argument.expression.toSource()}';
+              }
+              return argument.toSource();
+            })
+            .join(', ');
+        build(message: 'Use Transform', replacement: 'Transform($arguments)');
       }
     });
   }
