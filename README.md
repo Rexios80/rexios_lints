@@ -222,3 +222,8 @@ prefer_timestamps
 
 - Safety
 - Creating anything other than UTC timestamps with `DateTime.timestamp()` could lead to storing bad data
+
+unnecessary_container
+
+- Performance
+- `Container` widgets add a lot of overhead. Use specialized widgets when possible.

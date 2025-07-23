@@ -1,3 +1,7 @@
+## 14.0.0
+
+- Adds `unnecessary_container` to `extra`
+
 ## 13.0.0
 
 - Adds `inline_context_lookups` to `extra`
