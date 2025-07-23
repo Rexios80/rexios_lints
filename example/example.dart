@@ -155,8 +155,16 @@ void unnecessaryContainer() {
   // expect_lint: unnecessary_container
   Container(width: 0, height: 0, child: Text('Hello'));
 
+  // expect_lint: unnecessary_container
   Container(
     transform: Matrix4.identity(),
     transformAlignment: Alignment.center,
+  );
+
+  // expect_lint: unnecessary_container
+  Container(
+    transform: Matrix4.identity(),
+    transformAlignment: Alignment.center,
+    child: Text('Hello'),
   );
 }
