@@ -4,6 +4,7 @@ import 'package:rexios_lints/custom_lint/inline_context_lookups.dart';
 import 'package:rexios_lints/custom_lint/prefer_async_await.dart';
 import 'package:rexios_lints/custom_lint/prefer_immutable_classes.dart';
 import 'package:rexios_lints/custom_lint/prefer_timestamps.dart';
+import 'package:rexios_lints/custom_lint/unnecessary_container.dart';
 
 /// Create the linter plugin
 PluginBase createPlugin() => _RexiosLinter();
@@ -16,5 +17,6 @@ class _RexiosLinter extends PluginBase {
     PreferAsyncAwait(),
     PreferImmutableClasses(),
     PreferTimestamps(),
+    UnnecessaryContainer(),
   ];
 }

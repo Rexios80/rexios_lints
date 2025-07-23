@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // ignore: prefer_single_quotes
@@ -107,4 +108,14 @@ void inlineContextLookups(BuildContext context) {
 
   // expect_lint: inline_context_lookups
   print(MediaQuery.maybeAccessibleNavigationOf(context));
+}
+
+void unnecessaryContainer() {
+  const SizedBox.shrink();
+
+  Container(
+    child: Text('Hello'),
+  );
+
+  Container(color: Colors.red);
 }
