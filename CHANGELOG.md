@@ -1,3 +1,7 @@
+## 14.0.1
+
+- Supports `custom_lint` version `0.8.0`
+
 ## 14.0.0
 
 - Adds `unnecessary_container` to `extra`
