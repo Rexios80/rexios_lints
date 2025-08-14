@@ -115,6 +115,11 @@ dart run custom_lint
 - Consistency
 - Enforces consistency with the rest of the Dart ecosystem
 
+[switch_on_type](https://dart.dev/tools/linter-rules/switch_on_type)
+
+- Safety
+- Switching on `Type` is not type-safe and can lead to bugs if the class hierarchy changes. Prefer to use pattern matching on the variable instead.
+
 [unawaited_futures](https://dart.dev/tools/linter-rules/unawaited_futures)
 
 - Safety

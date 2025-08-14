@@ -1,3 +1,8 @@
+## 15.0.0
+
+- Adds `switch_on_type` to `core`
+- Supports `analyzer` version `8.0.0`
+
 ## 14.0.1
 
 - Supports `custom_lint` version `0.8.0`
