@@ -1,5 +1,6 @@
 ## 15.0.0
 
+- Requires Dart `3.9.0`
 - Adds `switch_on_type` to `core`
 - Supports `analyzer` version `8.0.0`
 
