@@ -215,7 +215,7 @@ do_not_use_raw_paths
 
 do_not_use_stateful_builder
 
-- Readability
+- Best practices
 - Usage of `StatefulBuilder` indicates a complex widget that should be encapsulated in a `StatefulWidget` class
 
 double_leading_zero
