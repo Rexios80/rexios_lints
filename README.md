@@ -110,6 +110,11 @@ dart run custom_lint
 - Safety
 - Prevents accidental reassignment
 
+[prefer_int_literals](https://dart.dev/tools/linter-rules/prefer_int_literals)
+
+- Brevity
+- Integer literals are more concise than double literals
+
 [prefer_single_quotes](https://dart.dev/tools/linter-rules/prefer_single_quotes)
 
 - Consistency

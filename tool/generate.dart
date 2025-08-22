@@ -11,6 +11,7 @@ final core = [
   'omit_obvious_property_types',
   'prefer_final_in_for_each',
   'prefer_final_locals',
+  'prefer_int_literals',
   'prefer_single_quotes',
   'switch_on_type',
   'unawaited_futures',

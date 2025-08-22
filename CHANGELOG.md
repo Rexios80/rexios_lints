@@ -1,7 +1,9 @@
 ## 15.0.0
 
 - Requires Dart `3.9.0`
-- Adds `switch_on_type` to `core`
+- Adds the following lints to `core`:
+  - `prefer_int_literals`
+  - `switch_on_type`
 - Adds the following lints to `extra`:
   - `do_not_use_stateful_builder`
 

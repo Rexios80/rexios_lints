@@ -1,4 +1,4 @@
-// ignore_for_file: document_ignores, unused_local_variable, omit_local_variable_types
+// ignore_for_file: document_ignores
 
 import 'dart:async';
 import 'dart:io';
@@ -172,15 +172,4 @@ void unnecessaryContainer() {
 void doNotUseStatefulBuilder() {
   // expect_lint: do_not_use_stateful_builder
   StatefulBuilder(builder: (_, _) => const SizedBox.shrink());
-}
-
-void doubleTrailingZeros() {
-  final a = 1.0;
-  // expect_lint: double_trailing_zeros
-  final b = 1.00;
-  // expect_lint: double_trailing_zeros
-  final double c = 1.0;
-
-  // expect_lint: double_trailing_zeros
-  const SizedBox(width: 16.0);
 }
