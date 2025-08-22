@@ -173,3 +173,9 @@ void doNotUseStatefulBuilder() {
   // expect_lint: do_not_use_stateful_builder
   StatefulBuilder(builder: (_, _) => const SizedBox.shrink());
 }
+
+void doubleLeadingZero() {
+  0.12345;
+  // expect_lint: double_leading_zero
+  .12345;
+}

@@ -6,6 +6,7 @@
   - `switch_on_type`
 - Adds the following lints to `extra`:
   - `do_not_use_stateful_builder`
+  - `double_leading_zero`
 
 ## 14.0.1
 

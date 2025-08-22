@@ -218,6 +218,11 @@ do_not_use_stateful_builder
 - Readability
 - Usage of `StatefulBuilder` indicates a complex widget that should be encapsulated in a `StatefulWidget` class
 
+double_leading_zero
+
+- Readability
+- `0.12345` is more readable than `.12345`
+
 [inline_context_lookups](https://redd.it/1liezgz)
 
 - Performance
