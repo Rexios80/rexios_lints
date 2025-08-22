@@ -1,5 +1,6 @@
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:rexios_lints/custom_lint/do_not_use_raw_paths.dart';
+import 'package:rexios_lints/custom_lint/do_not_use_stateful_builder.dart';
 import 'package:rexios_lints/custom_lint/inline_context_lookups.dart';
 import 'package:rexios_lints/custom_lint/prefer_async_await.dart';
 import 'package:rexios_lints/custom_lint/prefer_immutable_classes.dart';
@@ -13,6 +14,7 @@ class _RexiosLinter extends PluginBase {
   @override
   List<LintRule> getLintRules(CustomLintConfigs configs) => [
     DoNotUseRawPaths(),
+    DoNotUseStatefulBuilder(),
     InlineContextLookups(),
     PreferAsyncAwait(),
     PreferImmutableClasses(),

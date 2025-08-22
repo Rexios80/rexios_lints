@@ -168,3 +168,8 @@ void unnecessaryContainer() {
     child: Text('Hello'),
   );
 }
+
+void doNotUseStatefulBuilder() {
+  // expect_lint: do_not_use_stateful_builder
+  StatefulBuilder(builder: (_, _) => const SizedBox.shrink());
+}
