@@ -1,3 +1,4 @@
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -9,7 +10,7 @@ class DoubleLeadingZero extends DartLintRule {
     problemMessage:
         'Doubles with no integer component should have a leading zero.',
     correctionMessage: 'Add a leading zero.',
-    errorSeverity: ErrorSeverity.INFO,
+    errorSeverity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor
@@ -18,7 +19,7 @@ class DoubleLeadingZero extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addDoubleLiteral((node) {
@@ -37,8 +38,8 @@ class _AddLeadingZeroFix extends DartFix {
     CustomLintResolver resolver,
     ChangeReporter reporter,
     CustomLintContext context,
-    AnalysisError analysisError,
-    List<AnalysisError> others,
+    Diagnostic analysisError,
+    List<Diagnostic> others,
   ) {
     context.registry.addDoubleLiteral((node) {
       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;

@@ -11,7 +11,7 @@ class InlineContextLookups extends DartLintRule {
     correctionMessage:
         'Store the result of context lookups in reusable variables.',
     url: 'https://redd.it/1liezgz',
-    errorSeverity: ErrorSeverity.INFO,
+    errorSeverity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor
@@ -20,7 +20,7 @@ class InlineContextLookups extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addMethodInvocation((node) {

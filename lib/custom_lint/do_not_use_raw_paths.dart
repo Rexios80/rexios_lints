@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -14,7 +15,7 @@ class DoNotUseRawPaths extends DartLintRule {
     name: 'do_not_use_raw_paths',
     problemMessage: 'Raw path strings are platform-specific.',
     correctionMessage: 'Use the join method from the path package instead.',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
   );
 
   /// Type checker for `FileSystemEntity`
@@ -28,7 +29,7 @@ class DoNotUseRawPaths extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addInstanceCreationExpression((node) {
@@ -63,8 +64,8 @@ class UsePathJoinFix extends DartFix {
     CustomLintResolver resolver,
     ChangeReporter reporter,
     CustomLintContext context,
-    AnalysisError analysisError,
-    List<AnalysisError> others,
+    Diagnostic analysisError,
+    List<Diagnostic> others,
   ) async {
     final resolved = await resolver.getResolvedUnitResult();
 

@@ -9,7 +9,7 @@ class DoNotUseStatefulBuilder extends DartLintRule {
     problemMessage:
         'StatefulBuilder usage indicates this widget should be encapsulated.',
     correctionMessage: 'Create a standalone StatefulWidget class.',
-    errorSeverity: ErrorSeverity.INFO,
+    errorSeverity: DiagnosticSeverity.INFO,
   );
 
   /// Type checker for `StatefulBuilder`
@@ -23,7 +23,7 @@ class DoNotUseStatefulBuilder extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addInstanceCreationExpression((node) {

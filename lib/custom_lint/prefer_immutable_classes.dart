@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -10,7 +11,7 @@ class PreferImmutableClasses extends DartLintRule {
     name: 'prefer_immutable_classes',
     problemMessage: 'Classes with only getters should be immutable.',
     correctionMessage: 'Add the @immutable annotation to the class.',
-    errorSeverity: ErrorSeverity.INFO,
+    errorSeverity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor
@@ -19,7 +20,7 @@ class PreferImmutableClasses extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addClassDeclaration((node) {
@@ -35,8 +36,8 @@ class PreferImmutableClasses extends DartLintRule {
       final isImmutable = [
         ...node.metadata.map((e) => e.name.name),
         ...element.allSupertypes
-            .expand((e) => e.element3.metadata2.annotations)
-            .map((e) => e.element2?.displayName)
+            .expand((e) => e.element.metadata.annotations)
+            .map((e) => e.element?.displayName)
             .whereType<String>(),
       ].any((e) => e == 'immutable');
       if (isImmutable) return;
@@ -62,8 +63,8 @@ class _MakeImmutableFix extends DartFix {
     CustomLintResolver resolver,
     ChangeReporter reporter,
     CustomLintContext context,
-    AnalysisError analysisError,
-    List<AnalysisError> others,
+    Diagnostic analysisError,
+    List<Diagnostic> others,
   ) async {
     final resolved = await resolver.getResolvedUnitResult();
 

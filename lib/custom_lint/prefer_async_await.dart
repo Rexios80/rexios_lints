@@ -9,7 +9,7 @@ class PreferAsyncAwait extends DartLintRule {
     problemMessage: 'Prefer async/await over using raw futures.',
     url:
         'https://dart.dev/effective-dart/usage#prefer-asyncawait-over-using-raw-futures',
-    errorSeverity: ErrorSeverity.INFO,
+    errorSeverity: DiagnosticSeverity.INFO,
   );
 
   /// Type checker for `Future`
@@ -21,7 +21,7 @@ class PreferAsyncAwait extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addMethodInvocation((node) {
