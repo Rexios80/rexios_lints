@@ -179,3 +179,9 @@ void doubleLeadingZero() {
   // expect_lint: double_leading_zero
   .12345;
 }
+
+String? nullableString;
+void notNullAssertion() {
+  // expect_lint: not_null_assertion
+  nullableString!.split('');
+}
