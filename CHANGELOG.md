@@ -1,3 +1,7 @@
+## 16.0.0
+
+- Adds `not_null_assertion` to `extra`
+
 ## 15.0.1
 
 - Supports `analyzer` version `8.0.0`

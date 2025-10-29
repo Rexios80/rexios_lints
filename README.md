@@ -228,6 +228,11 @@ double_leading_zero
 - Performance
 - Using many inline context lookups can lead to performance issues
 
+not_null_assertion
+
+- Safety
+- Using `!` to assert a value is not null is not safe. [See the Dart documentation for help.](https://dart.dev/null-safety/understanding-null-safety#working-with-nullable-types)
+
 [prefer_async_await](https://dart.dev/effective-dart/usage#prefer-asyncawait-over-using-raw-futures)
 
 - Readability
