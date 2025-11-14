@@ -27,6 +27,29 @@ final _ = $entity('$path');
       lint(39, 19),
     ]);
   }
+
+  void test_file() async {
+    await assertDiagnostics(content('File', 'path/to/file'), [lint(34, 14)]);
+  }
+
+  // TODO: Figure out why Link isn't resolving
+  // void test_link() async {
+  //   await assertDiagnostics(content('Link', 'path/to/entity'), [
+  //     lint(39, 16),
+  //   ]);
+  // }
+
+  void test_back_slash() async {
+    await assertDiagnostics(content('Directory', 'path\\to\\directory'), [
+      lint(39, 19),
+    ]);
+  }
+
+  void test_raw_string() async {
+    await assertDiagnostics(content('Directory', r'path\to\directory'), [
+      lint(39, 19),
+    ]);
+  }
 }
 
 void main() {
