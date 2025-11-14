@@ -1,32 +1,46 @@
-// import 'package:analyzer/dart/ast/token.dart';
-// import 'package:analyzer/error/error.dart' hide LintCode;
-// import 'package:analyzer/error/listener.dart';
-// import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/error/error.dart';
 
-// /// Do not use not-null assertion operators
-// class NotNullAssertion extends DartLintRule {
-//   static const _code = LintCode(
-//     name: 'not_null_assertion',
-//     problemMessage: 'Do not use not-null assertion operators.',
-//     correctionMessage: 'Use null-aware operators instead.',
-//     url:
-//         'https://dart.dev/null-safety/understanding-null-safety#working-with-nullable-types',
-//     errorSeverity: DiagnosticSeverity.WARNING,
-//   );
+/// Do not use not-null assertion operators
+class NotNullAssertion extends AnalysisRule {
+  /// not_null_assertion
+  static const code = LintCode(
+    'not_null_assertion',
+    'Do not use not-null assertion operators.',
+    correctionMessage: 'Use null-aware operators instead.',
+    severity: DiagnosticSeverity.WARNING,
+  );
 
-//   /// Constructor
-//   const NotNullAssertion() : super(code: _code);
+  /// Constructor
+  NotNullAssertion() : super(name: code.name, description: code.problemMessage);
 
-//   @override
-//   void run(
-//     CustomLintResolver resolver,
-//     DiagnosticReporter reporter,
-//     CustomLintContext context,
-//   ) {
-//     context.registry.addPostfixExpression((node) {
-//       if (node.operator.type != TokenType.BANG) return;
+  @override
+  LintCode get diagnosticCode => code;
 
-//       reporter.atNode(node, _code);
-//     });
-//   }
-// }
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addPostfixExpression(this, visitor);
+  }
+}
+
+class _Visitor extends SimpleAstVisitor<void> {
+  final AnalysisRule rule;
+  final RuleContext context;
+
+  _Visitor(this.rule, this.context);
+
+  @override
+  void visitPostfixExpression(PostfixExpression node) {
+    if (node.operator.type != TokenType.BANG) return;
+    rule.reportAtNode(node);
+  }
+}

@@ -13,8 +13,6 @@ class InlineContextLookups extends AnalysisRule {
     'Avoid inline context lookups.',
     correctionMessage:
         'Store the result of context lookups in reusable variables.',
-    // TODO: Make this work
-    // url: 'https://redd.it/1liezgz',
     severity: DiagnosticSeverity.INFO,
   );
 
