@@ -3,7 +3,7 @@ import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
-import 'package:rexios_lints/custom_lint/utils.dart';
+import 'package:rexios_lints/analyzer_plugin/utils.dart';
 
 bool _canBeSizedBox(InstanceCreationExpression node) {
   final hasWidth = node.argumentList.argumentByName('width') != null;

@@ -38,9 +38,8 @@ final flutter = [
 final package = ['public_member_api_docs']..sort();
 
 const customLint = '''
-analyzer:
-  plugins:
-    - custom_lint''';
+plugins:
+  - rexios_lints''';
 
 void main() {
   write(
