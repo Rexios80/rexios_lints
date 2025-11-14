@@ -14,7 +14,7 @@ class DoNotUseStatefulBuilderTest extends AnalysisRuleTest {
     super.setUp();
   }
 
-  void test_stateful_builder() async {
+  void test_invalid() async {
     await assertDiagnostics(
       '''
 import 'flutter/widgets.dart';

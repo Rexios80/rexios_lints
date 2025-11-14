@@ -1,37 +1,55 @@
-// import 'package:analyzer/dart/ast/ast.dart';
-// import 'package:analyzer/error/error.dart' hide LintCode;
-// import 'package:analyzer/error/listener.dart';
-// import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/error/error.dart';
 
-// /// Avoid inline context lookups
-// class InlineContextLookups extends DartLintRule {
-//   static const _code = LintCode(
-//     name: 'inline_context_lookups',
-//     problemMessage: 'Avoid inline context lookups.',
-//     correctionMessage:
-//         'Store the result of context lookups in reusable variables.',
-//     url: 'https://redd.it/1liezgz',
-//     errorSeverity: DiagnosticSeverity.INFO,
-//   );
+/// Avoid inline context lookups
+class InlineContextLookups extends AnalysisRule {
+  /// inline_context_lookups
+  static const code = LintCode(
+    'inline_context_lookups',
+    'Avoid inline context lookups.',
+    correctionMessage:
+        'Store the result of context lookups in reusable variables.',
+    // TODO: Make this work
+    // url: 'https://redd.it/1liezgz',
+    severity: DiagnosticSeverity.INFO,
+  );
 
-//   /// Constructor
-//   const InlineContextLookups() : super(code: _code);
+  /// Constructor
+  InlineContextLookups()
+    : super(name: code.name, description: code.problemMessage);
 
-//   @override
-//   void run(
-//     CustomLintResolver resolver,
-//     DiagnosticReporter reporter,
-//     CustomLintContext context,
-//   ) {
-//     context.registry.addMethodInvocation((node) {
-//       if (node.parent is VariableDeclaration ||
-//           !node.methodName.name.toLowerCase().endsWith('of') ||
-//           node.argumentList.arguments.length != 1 ||
-//           node.argumentList.arguments.first.toSource() != 'context') {
-//         return;
-//       }
+  @override
+  LintCode get diagnosticCode => code;
 
-//       reporter.atNode(node, _code);
-//     });
-//   }
-// }
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addMethodInvocation(this, visitor);
+  }
+}
+
+class _Visitor extends SimpleAstVisitor<void> {
+  final AnalysisRule rule;
+  final RuleContext context;
+
+  _Visitor(this.rule, this.context);
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    if (node.parent is VariableDeclaration ||
+        !node.methodName.name.toLowerCase().endsWith('of') ||
+        node.argumentList.arguments.length != 1 ||
+        node.argumentList.arguments.first.toSource() != 'context') {
+      return;
+    }
+
+    rule.reportAtNode(node);
+  }
+}

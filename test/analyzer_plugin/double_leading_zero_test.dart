@@ -14,11 +14,11 @@ class DoubleLeadingZeroTest extends AnalysisRuleTest {
     super.setUp();
   }
 
-  void test_no_leading_zero() async {
+  void test_invalid() async {
     await assertDiagnostics('final _ = .12345;', [lint(10, 6)]);
   }
 
-  void test_leading_zero() async {
+  void test_valid() async {
     await assertNoDiagnostics('final _ = 0.12345;');
   }
 }
