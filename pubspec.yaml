@@ -11,7 +11,7 @@ dependencies:
   flutter_lints: ^6.0.0
   analyzer: ^8.0.0
   analyzer_plugin: ^0.13.7
-  analysis_server_plugin: ^0.2.1
+  analysis_server_plugin: ^0.3.3
   source_gen: ^4.0.2
   collection: ^1.19.1
 

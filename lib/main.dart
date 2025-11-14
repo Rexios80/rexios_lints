@@ -16,6 +16,9 @@ final plugin = RexiosLintsPlugin();
 /// The rexios_lints analyzer plugin
 class RexiosLintsPlugin extends Plugin {
   @override
+  String get name => 'rexios_lints';
+
+  @override
   void register(PluginRegistry registry) {
     registry
       ..registerWarningRule(DoNotUseRawPaths())
