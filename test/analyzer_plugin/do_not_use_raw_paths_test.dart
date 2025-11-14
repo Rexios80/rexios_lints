@@ -15,7 +15,7 @@ class DoNotUseRawPathsTest extends AnalysisRuleTest {
     super.setUp();
   }
 
-  static content(String entity, String path) =>
+  static String content(String entity, String path) =>
       '''
 import 'dart:io';
 
@@ -43,6 +43,10 @@ final _ = $entity('$path');
     await assertDiagnostics(content('Directory', 'path\\to\\directory'), [
       lint(39, 19),
     ]);
+  }
+
+  void test_no_slash() async {
+    await assertNoDiagnostics(content('File', 'file.txt'));
   }
 
   void test_raw_string() async {
