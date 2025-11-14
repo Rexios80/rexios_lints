@@ -102,14 +102,15 @@ class UsePathJoin extends ResolvedCorrectionProducer {
     final segmentsString = createSegmentsString(path);
 
     await builder.addDartFileEdit(file, (builder) {
-      final import = builder.importLibraryElement(
+      final result = builder.importLibraryElement(
         Uri.parse('package:path/path.dart'),
         prefix: 'path',
       );
 
+      final pathAlias = result.prefix ?? 'path';
       builder.addSimpleReplacement(
         range.entity(node),
-        '${import.prefix}.join($segmentsString)',
+        '$pathAlias.join($segmentsString)',
       );
     });
   }
