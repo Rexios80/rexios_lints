@@ -22,8 +22,8 @@ class RexiosLintsPlugin extends Plugin {
   void register(PluginRegistry registry) {
     registry
       ..registerWarningRule(DoNotUseRawPaths())
-      ..registerFixForRule(DoNotUseRawPaths.code, UsePathJoin.new);
-    // ..registerWarningRule(DoNotUseStatefulBuilder())
+      ..registerFixForRule(DoNotUseRawPaths.code, UsePathJoin.new)
+      ..registerWarningRule(DoNotUseStatefulBuilder());
     // ..registerWarningRule(DoubleLeadingZero())
     // ..registerWarningRule(InlineContextLookups())
     // ..registerWarningRule(NotNullAssertion())
