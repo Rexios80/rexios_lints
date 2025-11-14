@@ -37,9 +37,15 @@ final flutter = [
 
 final package = ['public_member_api_docs']..sort();
 
-const customLint = '''
+final version = File('pubspec.yaml')
+    .readAsLinesSync()
+    .firstWhere((e) => e.startsWith('version:'))
+    .split(':')[1]
+    .trim();
+
+final plugins = '''
 plugins:
-  - rexios_lints''';
+  rexios_lints: ^$version''';
 
 void main() {
   write(
@@ -78,7 +84,7 @@ ${coreLints.map((e) => '    - $e').join('\n')}
   File('lib/$folder/core_extra.yaml').writeAsStringSync('''
 include: package:rexios_lints/$folder/core.yaml
 
-$customLint
+$plugins
 ''');
 
   // Write package lints
@@ -94,6 +100,6 @@ ${packageLints.map((e) => '    - $e').join('\n')}
   File('lib/$folder/package_extra.yaml').writeAsStringSync('''
 include: package:rexios_lints/$folder/package.yaml
 
-$customLint
+$plugins
 ''');
 }

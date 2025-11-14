@@ -20,3 +20,4 @@ dev_dependencies:
   http: ^1.2.1
   pub_semver: ^2.1.4
   analyzer_testing: ^0.1.2
+  test_reflective_loader: ^0.4.0
