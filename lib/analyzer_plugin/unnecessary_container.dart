@@ -136,12 +136,11 @@ class UseSpecializedWidget extends ResolvedCorrectionProducer {
 
       final widget = switch (otherArgument.name.label.name) {
         'alignment' => 'Align',
-        'padding' => 'Padding',
+        'padding' || 'margin' => 'Padding',
         'color' => 'ColoredBox',
         'decoration' || 'foregroundDecoration' => 'DecoratedBox',
         'width' || 'height' => 'SizedBox',
         'constraints' => 'ConstrainedBox',
-        'margin' => 'Padding',
         'transform' => 'Transform',
         'clipBehavior' => 'ClipRRect',
         _ => null,
@@ -149,10 +148,10 @@ class UseSpecializedWidget extends ResolvedCorrectionProducer {
 
       if (widget == null) return;
 
-      final arguments = node.argumentList.toSource().replaceFirst(
-        'foregroundDecoration:',
-        'decoration:',
-      );
+      final arguments = node.argumentList
+          .toSource()
+          .replaceFirst('foregroundDecoration:', 'decoration:')
+          .replaceFirst('margin:', 'padding:');
 
       await build('$widget$arguments');
     } else if (_canBeSizedBox(node)) {
