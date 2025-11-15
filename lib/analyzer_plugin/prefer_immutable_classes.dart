@@ -5,6 +5,8 @@ import 'package:analyzer/analysis_rule/rule_context.dart';
 import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
@@ -35,6 +37,20 @@ class PreferImmutableClasses extends AnalysisRule {
   }
 }
 
+/// Get all supertypes (not interfaces or mixins)
+List<InterfaceType> _allSuperclasses(
+  InterfaceElement element, {
+  List<InterfaceType> supertypes = const [],
+}) {
+  final supertype = element.supertype;
+  if (supertype == null) return supertypes;
+
+  return _allSuperclasses(
+    supertype.element,
+    supertypes: [...supertypes, supertype],
+  );
+}
+
 class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
@@ -53,7 +69,7 @@ class _Visitor extends SimpleAstVisitor<void> {
 
     final isImmutable = [
       ...node.metadata.map((e) => e.name.name),
-      ...element.allSupertypes
+      ..._allSuperclasses(element)
           .expand((e) => e.element.metadata.annotations)
           .map((e) => e.element?.displayName)
           .whereType<String>(),
