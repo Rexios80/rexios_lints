@@ -41,33 +41,33 @@ void preferFinal() {
 }
 
 void preferAsyncAwait() async {
-  // expect_lint: prefer_async_await
+  // ignore: rexios_lints/prefer_async_await
   await Future.value().then((_) {});
 }
 
 void preferTimestamps() {
-  // expect_lint: prefer_timestamps
+  // ignore: rexios_lints/prefer_timestamps
   DateTime.now();
   DateTime.timestamp();
 }
 
 void doNotUseRawPaths() {
-  // expect_lint: do_not_use_raw_paths
+  // ignore: rexios_lints/do_not_use_raw_paths
   Directory('path/to/directory');
-  // expect_lint: do_not_use_raw_paths
+  // ignore: rexios_lints/do_not_use_raw_paths
   File('path/to/file');
-  // expect_lint: do_not_use_raw_paths
+  // ignore: rexios_lints/do_not_use_raw_paths
   Link('path/to/entity');
 
-  // expect_lint: do_not_use_raw_paths
+  // ignore: rexios_lints/do_not_use_raw_paths
   Directory('path\\to\\directory');
   File('file.txt');
 
-  // expect_lint: do_not_use_raw_paths
+  // ignore: rexios_lints/do_not_use_raw_paths
   Directory(r'path\to\directory');
 }
 
-// expect_lint: prefer_immutable_classes
+// ignore: rexios_lints/prefer_immutable_classes
 class PreferImmutableClasses {
   final int value;
 
@@ -99,69 +99,69 @@ void inlineContextLookups(BuildContext context) {
   final navigator = Navigator.of(context);
   navigator.pop();
 
-  // expect_lint: inline_context_lookups
+  // ignore: rexios_lints/inline_context_lookups
   Navigator.of(context).pop();
 
   final accessibleNavigation = MediaQuery.maybeAccessibleNavigationOf(context);
   print(accessibleNavigation);
 
-  // expect_lint: inline_context_lookups
+  // ignore: rexios_lints/inline_context_lookups
   print(MediaQuery.maybeAccessibleNavigationOf(context));
 }
 
 void unnecessaryContainer() {
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container();
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(child: Text('Hello'));
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(alignment: Alignment.center);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(padding: EdgeInsets.zero);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(color: Color(0x00000000));
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(decoration: BoxDecoration());
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(foregroundDecoration: BoxDecoration());
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(width: 0);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(height: 0);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(constraints: BoxConstraints());
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(margin: EdgeInsets.zero);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(transform: Matrix4.identity());
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(clipBehavior: Clip.none);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(width: 0, height: 0);
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(width: 0, height: 0, child: Text('Hello'));
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(
     transform: Matrix4.identity(),
     transformAlignment: Alignment.center,
   );
 
-  // expect_lint: unnecessary_container
+  // ignore: rexios_lints/unnecessary_container
   Container(
     transform: Matrix4.identity(),
     transformAlignment: Alignment.center,
@@ -170,18 +170,18 @@ void unnecessaryContainer() {
 }
 
 void doNotUseStatefulBuilder() {
-  // expect_lint: do_not_use_stateful_builder
+  // ignore: rexios_lints/do_not_use_stateful_builder
   StatefulBuilder(builder: (_, _) => const SizedBox.shrink());
 }
 
 void doubleLeadingZero() {
   0.12345;
-  // expect_lint: double_leading_zero
+  // ignore: rexios_lints/double_leading_zero
   .12345;
 }
 
 String? nullableString;
 void notNullAssertion() {
-  // expect_lint: not_null_assertion
+  // ignore: rexios_lints/not_null_assertion
   nullableString!.split('');
 }
