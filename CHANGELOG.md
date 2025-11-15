@@ -1,3 +1,12 @@
+## 17.0.0
+
+- All rules rewritten for the new plugin system
+- Requires Dart `3.10.0`
+- `prefer_immutable_classes`
+  - Does not add `meta` import if it is transitively available
+  - Fixes for classes with static fields
+  - Enforces `immutable` annotations on classes that implement `immutable` interfaces
+
 ## 16.0.0
 
 - Adds `not_null_assertion` to `extra`
