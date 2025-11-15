@@ -123,8 +123,8 @@ class UsePathJoin extends ResolvedCorrectionProducer {
         // Replace unescaped backslashes with forward slashes
         .replaceAll(r'\', '/')
         // Remove leading raw string prefix
-        .replaceFirst("r'", "'")
-        .replaceFirst('r"', '"');
+        .replaceFirst(RegExp("^r'"), "'")
+        .replaceFirst(RegExp('^r"'), '"');
 
     return sanitized
         // Strip leading/trailing quotes
@@ -134,10 +134,9 @@ class UsePathJoin extends ResolvedCorrectionProducer {
         .map((segment) {
           final si1Match = _stringInterpolation1.firstMatch(segment);
           if (si1Match != null) {
-            final content = si1Match[1]!;
             if (si1Match[2] == null) {
               // Strip interpolation
-              return content;
+              return si1Match[1];
             } else {
               // Do not strip interpolation
               return "'$segment'";
@@ -145,7 +144,7 @@ class UsePathJoin extends ResolvedCorrectionProducer {
           }
 
           final si2Match = _stringInterpolation2.firstMatch(segment);
-          if (si2Match != null) return si2Match[1]!;
+          if (si2Match != null) return si2Match[1];
 
           return "'$segment'";
         })
