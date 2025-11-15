@@ -13,7 +13,6 @@ class PreferAsyncAwait extends AnalysisRule {
   static const code = LintCode(
     'prefer_async_await',
     'Prefer async/await over using raw futures.',
-    severity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor

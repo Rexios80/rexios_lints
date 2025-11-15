@@ -19,7 +19,6 @@ class PreferTimestamps extends AnalysisRule {
     'prefer_timestamps',
     'Prefer creating UTC timestamps. Local time should only be used for display purposes.',
     correctionMessage: 'Use DateTime.timestamp() instead.',
-    severity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor

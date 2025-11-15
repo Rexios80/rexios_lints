@@ -15,7 +15,6 @@ class DoNotUseStatefulBuilder extends AnalysisRule {
     'do_not_use_stateful_builder',
     'StatefulBuilder usage indicates this widget should be encapsulated.',
     correctionMessage: 'Create a standalone StatefulWidget class.',
-    severity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor

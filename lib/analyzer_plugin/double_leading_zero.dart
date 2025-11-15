@@ -18,7 +18,6 @@ class DoubleLeadingZero extends AnalysisRule {
     'double_leading_zero',
     'Doubles with no integer component should have a leading zero.',
     correctionMessage: 'Add a leading zero.',
-    severity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor

@@ -14,7 +14,6 @@ class InlineContextLookups extends AnalysisRule {
     'Avoid inline context lookups.',
     correctionMessage:
         'Store the result of context lookups in reusable variables.',
-    severity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor

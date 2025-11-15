@@ -41,7 +41,6 @@ class UnnecessaryContainer extends AnalysisRule {
     'unnecessary_container',
     'Do not use Containers unnecessarily.',
     correctionMessage: 'Use specialized widgets instead.',
-    severity: DiagnosticSeverity.INFO,
   );
 
   /// Constructor

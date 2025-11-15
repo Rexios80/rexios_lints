@@ -18,7 +18,7 @@ class PreferImmutableClasses extends AnalysisRule {
     'prefer_immutable_classes',
     'Classes with only getters should be immutable.',
     correctionMessage: 'Add the @immutable annotation to the class.',
-    severity: DiagnosticSeverity.INFO,
+,
   );
 
   /// Constructor
