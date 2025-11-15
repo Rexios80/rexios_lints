@@ -12,6 +12,7 @@ import 'package:rexios_lints/analyzer_plugin/utils.dart';
 
 /// Prefer immutable classes
 class PreferImmutableClasses extends AnalysisRule {
+  /// prefer_immutable_classes
   static const code = LintCode(
     'prefer_immutable_classes',
     'Classes with only getters should be immutable.',
