@@ -1,155 +1,168 @@
-// import 'package:analyzer/dart/ast/ast.dart';
-// import 'package:analyzer/diagnostic/diagnostic.dart';
-// import 'package:analyzer/error/error.dart' hide LintCode;
-// import 'package:analyzer/error/listener.dart';
-// import 'package:custom_lint_builder/custom_lint_builder.dart';
-// import 'package:rexios_lints/analyzer_plugin/utils.dart';
+import 'package:analysis_server_plugin/edit/dart/correction_producer.dart';
+import 'package:analysis_server_plugin/edit/dart/dart_fix_kind_priority.dart';
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
+import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
+import 'package:analyzer_plugin/utilities/range_factory.dart';
+import 'package:rexios_lints/analyzer_plugin/utils.dart';
+import 'package:source_gen/source_gen.dart';
 
-// bool _canBeSizedBox(InstanceCreationExpression node) {
-//   final hasWidth = node.argumentList.argumentByName('width') != null;
-//   final hasHeight = node.argumentList.argumentByName('height') != null;
-//   final hasChild = node.argumentList.argumentByName('child') != null;
+bool _canBeSizedBox(InstanceCreationExpression node) {
+  final hasWidth = node.argumentList.argumentByName('width') != null;
+  final hasHeight = node.argumentList.argumentByName('height') != null;
+  final hasChild = node.argumentList.argumentByName('child') != null;
 
-//   final length = node.argumentList.arguments.length;
-//   return hasWidth && hasHeight && (length == 2 || (length == 3 && hasChild));
-// }
+  final length = node.argumentList.arguments.length;
+  return hasWidth && hasHeight && (length == 2 || (length == 3 && hasChild));
+}
 
-// bool _canBeTransform(InstanceCreationExpression node) {
-//   final hasTransform = node.argumentList.argumentByName('transform') != null;
-//   final hasTransformAlignment =
-//       node.argumentList.argumentByName('transformAlignment') != null;
-//   final hasChild = node.argumentList.argumentByName('child') != null;
+bool _canBeTransform(InstanceCreationExpression node) {
+  final hasTransform = node.argumentList.argumentByName('transform') != null;
+  final hasTransformAlignment =
+      node.argumentList.argumentByName('transformAlignment') != null;
+  final hasChild = node.argumentList.argumentByName('child') != null;
 
-//   final length = node.argumentList.arguments.length;
-//   return hasTransform &&
-//       hasTransformAlignment &&
-//       (length == 2 || (length == 3 && hasChild));
-// }
+  final length = node.argumentList.arguments.length;
+  return hasTransform &&
+      hasTransformAlignment &&
+      (length == 2 || (length == 3 && hasChild));
+}
 
-// /// Do not use Containers unnecessarily
-// class UnnecessaryContainer extends DartLintRule {
-//   static const _code = LintCode(
-//     name: 'unnecessary_container',
-//     problemMessage: 'Do not use Containers unnecessarily.',
-//     correctionMessage: 'Use specialized widgets instead.',
-//     errorSeverity: DiagnosticSeverity.INFO,
-//   );
+/// Do not use Containers unnecessarily
+class UnnecessaryContainer extends AnalysisRule {
+  /// unnecessary_container
+  static const code = LintCode(
+    'unnecessary_container',
+    'Do not use Containers unnecessarily.',
+    correctionMessage: 'Use specialized widgets instead.',
+    severity: DiagnosticSeverity.INFO,
+  );
 
-//   /// Type checker for `Container`
-//   static const containerTypeChecker = TypeChecker.fromName('Container');
+  /// Constructor
+  UnnecessaryContainer()
+    : super(name: code.name, description: code.problemMessage);
 
-//   /// Constructor
-//   const UnnecessaryContainer() : super(code: _code);
+  @override
+  LintCode get diagnosticCode => code;
 
-//   @override
-//   void run(
-//     CustomLintResolver resolver,
-//     DiagnosticReporter reporter,
-//     CustomLintContext context,
-//   ) {
-//     context.registry.addInstanceCreationExpression((node) {
-//       final targetType = node.staticType;
-//       if (targetType == null ||
-//           !containerTypeChecker.isExactlyType(targetType)) {
-//         return;
-//       }
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addInstanceCreationExpression(this, visitor);
+  }
+}
 
-//       final length = node.argumentList.arguments.length;
-//       final hasChild = node.argumentList.argumentByName('child') != null;
+class _Visitor extends SimpleAstVisitor<void> {
+  /// Type checker for `Container`
+  static const containerTypeChecker = TypeChecker.typeNamed(
+    TypeNamed('Container'),
+    inPackage: 'flutter',
+  );
 
-//       if (length < 2 ||
-//           (length == 2 && hasChild) ||
-//           _canBeSizedBox(node) ||
-//           _canBeTransform(node)) {
-//         reporter.atNode(node, _code);
-//       }
-//     });
-//   }
+  final AnalysisRule rule;
+  final RuleContext context;
 
-//   @override
-//   List<Fix> getFixes() => [_UseSpecializedWidgetFix()];
-// }
+  _Visitor(this.rule, this.context);
 
-// class _UseSpecializedWidgetFix extends DartFix {
-//   @override
-//   void run(
-//     CustomLintResolver resolver,
-//     ChangeReporter reporter,
-//     CustomLintContext context,
-//     Diagnostic analysisError,
-//     List<Diagnostic> others,
-//   ) {
-//     context.registry.addInstanceCreationExpression((node) {
-//       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;
+  @override
+  void visitInstanceCreationExpression(InstanceCreationExpression node) {
+    final targetType = node.staticType;
+    if (targetType == null || !containerTypeChecker.isExactlyType(targetType)) {
+      return;
+    }
 
-//       final childArgument = node.argumentList.argumentByName('child');
-//       final otherArguments = node.argumentList.arguments.where(
-//         (argument) => argument != childArgument,
-//       );
+    final length = node.argumentList.arguments.length;
+    final hasChild = node.argumentList.argumentByName('child') != null;
 
-//       void build({required String message, required String replacement}) {
-//         final builder = reporter.createChangeBuilder(
-//           message: message,
-//           // TODO: Is there a standard priority for lint fixes
-//           priority: 999,
-//         );
+    if (length < 2 ||
+        (length == 2 && hasChild) ||
+        _canBeSizedBox(node) ||
+        _canBeTransform(node)) {
+      rule.reportAtNode(node);
+    }
+  }
+}
 
-//         builder.addDartFileEdit((builder) {
-//           builder.addSimpleReplacement(analysisError.sourceRange, replacement);
-//         });
-//       }
+/// Fix for `unnecessary_container`
+class UseSpecializedWidget extends ResolvedCorrectionProducer {
+  static const _kind = FixKind(
+    'rexios_lints.fix.useSpecializedWidget',
+    DartFixKindPriority.standard,
+    'Use specialized widget',
+  );
 
-//       if (otherArguments.isEmpty) {
-//         if (childArgument == null) {
-//           build(
-//             message: 'Use SizedBox.shrink()',
-//             replacement: 'const SizedBox.shrink()',
-//           );
-//         } else {
-//           build(
-//             message: 'Remove this Container',
-//             replacement: childArgument.expression.toSource(),
-//           );
-//         }
-//       } else if (otherArguments.length == 1) {
-//         final otherArgument = otherArguments.single as NamedExpression;
+  /// Constructor
+  UseSpecializedWidget({required super.context});
 
-//         final widget = switch (otherArgument.name.label.name) {
-//           'alignment' => 'Align',
-//           'padding' => 'Padding',
-//           'color' => 'ColoredBox',
-//           'decoration' || 'foregroundDecoration' => 'DecoratedBox',
-//           'width' || 'height' => 'SizedBox',
-//           'constraints' => 'ConstrainedBox',
-//           'margin' => 'Padding',
-//           'transform' => 'Transform',
-//           'clipBehavior' => 'ClipRRect',
-//           _ => null,
-//         };
+  @override
+  CorrectionApplicability get applicability =>
+      CorrectionApplicability.singleLocation;
 
-//         if (widget == null) return;
+  @override
+  FixKind get fixKind => _kind;
 
-//         build(
-//           message: 'Use $widget',
-//           replacement: '$widget${node.argumentList.toSource()}',
-//         );
-//       } else if (_canBeSizedBox(node)) {
-//         build(
-//           message: 'Use SizedBox',
-//           replacement: 'SizedBox${node.argumentList.toSource()}',
-//         );
-//       } else if (_canBeTransform(node)) {
-//         final arguments = node.argumentList.arguments
-//             .whereType<NamedExpression>()
-//             .map((argument) {
-//               if (argument.name.label.name == 'transformAlignment') {
-//                 return 'alignment: ${argument.expression.toSource()}';
-//               }
-//               return argument.toSource();
-//             })
-//             .join(', ');
-//         build(message: 'Use Transform', replacement: 'Transform($arguments)');
-//       }
-//     });
-//   }
-// }
+  @override
+  Future<void> compute(ChangeBuilder builder) async {
+    final node = this.node;
+    if (node is! InstanceCreationExpression) return;
+
+    final childArgument = node.argumentList.argumentByName('child');
+    final otherArguments = node.argumentList.arguments.where(
+      (argument) => argument != childArgument,
+    );
+
+    Future<void> build(String replacement) {
+      return builder.addDartFileEdit(file, (builder) {
+        builder.addSimpleReplacement(range.entity(node), replacement);
+      });
+    }
+
+    if (otherArguments.isEmpty) {
+      if (childArgument == null) {
+        await build('const SizedBox.shrink()');
+      } else {
+        await build(childArgument.expression.toSource());
+      }
+    } else if (otherArguments.length == 1) {
+      final otherArgument = otherArguments.single as NamedExpression;
+
+      final widget = switch (otherArgument.name.label.name) {
+        'alignment' => 'Align',
+        'padding' => 'Padding',
+        'color' => 'ColoredBox',
+        'decoration' || 'foregroundDecoration' => 'DecoratedBox',
+        'width' || 'height' => 'SizedBox',
+        'constraints' => 'ConstrainedBox',
+        'margin' => 'Padding',
+        'transform' => 'Transform',
+        'clipBehavior' => 'ClipRRect',
+        _ => null,
+      };
+
+      if (widget == null) return;
+
+      await build('$widget${node.argumentList.toSource()}');
+    } else if (_canBeSizedBox(node)) {
+      await build('SizedBox${node.argumentList.toSource()}');
+    } else if (_canBeTransform(node)) {
+      final arguments = node.argumentList.arguments
+          .whereType<NamedExpression>()
+          .map((argument) {
+            if (argument.name.label.name == 'transformAlignment') {
+              return 'alignment: ${argument.expression.toSource()}';
+            }
+            return argument.toSource();
+          })
+          .join(', ');
+      await build('Transform($arguments)');
+    }
+  }
+}
