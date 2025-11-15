@@ -4,6 +4,7 @@ import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:meta/meta.dart';
 import 'package:rexios_lints/analyzer_plugin/utils.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -34,6 +35,7 @@ class DoNotUseStatefulBuilder extends AnalysisRule {
   }
 }
 
+@immutable
 class _Visitor extends SimpleAstVisitor<void> {
   /// Type checker for `StatefulBuilder`
   static const statefulBuilderTypeChecker = TypeChecker.typeNamed(
@@ -44,7 +46,7 @@ class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  _Visitor(this.rule, this.context);
+  const _Visitor(this.rule, this.context);
 
   @override
   void visitInstanceCreationExpression(InstanceCreationExpression node) {

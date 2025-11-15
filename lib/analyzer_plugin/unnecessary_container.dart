@@ -9,6 +9,7 @@ import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
+import 'package:meta/meta.dart';
 import 'package:rexios_lints/analyzer_plugin/utils.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -60,6 +61,7 @@ class UnnecessaryContainer extends AnalysisRule {
   }
 }
 
+@immutable
 class _Visitor extends SimpleAstVisitor<void> {
   /// Type checker for `Container`
   static const containerTypeChecker = TypeChecker.typeNamed(
@@ -70,7 +72,7 @@ class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  _Visitor(this.rule, this.context);
+  const _Visitor(this.rule, this.context);
 
   @override
   void visitInstanceCreationExpression(InstanceCreationExpression node) {

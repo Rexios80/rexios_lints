@@ -4,6 +4,7 @@ import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:meta/meta.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Prefer async/await over using raw futures
@@ -31,6 +32,7 @@ class PreferAsyncAwait extends AnalysisRule {
   }
 }
 
+@immutable
 class _Visitor extends SimpleAstVisitor<void> {
   /// Type checker for `Future`
   static const futreTypeChecker = TypeChecker.typeNamed(
@@ -42,7 +44,7 @@ class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  _Visitor(this.rule, this.context);
+  const _Visitor(this.rule, this.context);
 
   @override
   void visitMethodInvocation(MethodInvocation node) {

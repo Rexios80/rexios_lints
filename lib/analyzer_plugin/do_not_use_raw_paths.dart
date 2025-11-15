@@ -10,6 +10,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
+import 'package:meta/meta.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 
@@ -43,6 +44,7 @@ class DoNotUseRawPaths extends AnalysisRule {
   }
 }
 
+@immutable
 class _Visitor extends SimpleAstVisitor<void> {
   /// Type checker for `FileSystemEntity`
   static final fileSystemEntityTypeChecker = TypeChecker.typeNamed(
@@ -54,7 +56,7 @@ class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  _Visitor(this.rule, this.context);
+  const _Visitor(this.rule, this.context);
 
   @override
   void visitInstanceCreationExpression(InstanceCreationExpression node) {

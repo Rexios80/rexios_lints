@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 
 /// Extension on [ArgumentList]
 extension ArgumentListExtension on ArgumentList {
@@ -14,6 +15,7 @@ extension ArgumentListExtension on ArgumentList {
 /// Create a Type class who's toString() method returns the name
 ///
 /// Workaround for TypeChecker.typeNamed() not accepting a String.
+@immutable
 class TypeNamed implements Type {
   /// The name of the type
   final String name;

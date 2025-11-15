@@ -4,6 +4,7 @@ import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:meta/meta.dart';
 
 /// Avoid inline context lookups
 class InlineContextLookups extends AnalysisRule {
@@ -33,11 +34,12 @@ class InlineContextLookups extends AnalysisRule {
   }
 }
 
+@immutable
 class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  _Visitor(this.rule, this.context);
+  const _Visitor(this.rule, this.context);
 
   @override
   void visitMethodInvocation(MethodInvocation node) {

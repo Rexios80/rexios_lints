@@ -9,6 +9,7 @@ import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
+import 'package:meta/meta.dart';
 
 /// Do use leading zeros in double literals
 class DoubleLeadingZero extends AnalysisRule {
@@ -37,11 +38,12 @@ class DoubleLeadingZero extends AnalysisRule {
   }
 }
 
+@immutable
 class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  _Visitor(this.rule, this.context);
+  const _Visitor(this.rule, this.context);
 
   @override
   void visitDoubleLiteral(DoubleLiteral node) {
