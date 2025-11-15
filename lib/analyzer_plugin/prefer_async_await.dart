@@ -35,7 +35,7 @@ class PreferAsyncAwait extends AnalysisRule {
 @immutable
 class _Visitor extends SimpleAstVisitor<void> {
   /// Type checker for `Future`
-  static const futreTypeChecker = TypeChecker.typeNamed(
+  static const futureTypeChecker = TypeChecker.typeNamed(
     Future,
     inPackage: 'async',
     inSdk: true,
@@ -51,7 +51,7 @@ class _Visitor extends SimpleAstVisitor<void> {
     final targetType = node.target?.staticType;
     if (targetType == null ||
         node.methodName.name != 'then' ||
-        !futreTypeChecker.isExactlyType(targetType)) {
+        !futureTypeChecker.isExactlyType(targetType)) {
       return;
     }
 

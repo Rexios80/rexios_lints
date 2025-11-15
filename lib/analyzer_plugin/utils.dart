@@ -12,7 +12,7 @@ extension ArgumentListExtension on ArgumentList {
       .firstWhereOrNull((argument) => argument.name.label.name == name);
 }
 
-/// Create a Type class who's toString() method returns the name
+/// Create a Type class whose toString() method returns the name
 ///
 /// Workaround for TypeChecker.typeNamed() not accepting a String.
 @immutable
