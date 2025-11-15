@@ -27,8 +27,8 @@ class RexiosLintsPlugin extends Plugin {
       ..registerWarningRule(DoubleLeadingZero())
       ..registerFixForRule(DoubleLeadingZero.code, AddLeadingZero.new)
       ..registerWarningRule(InlineContextLookups())
-      ..registerWarningRule(NotNullAssertion());
-    // ..registerWarningRule(PreferAsyncAwait())
+      ..registerWarningRule(NotNullAssertion())
+      ..registerWarningRule(PreferAsyncAwait());
     // ..registerWarningRule(PreferImmutableClasses())
     // ..registerWarningRule(PreferTimestamps())
     // ..registerWarningRule(UnnecessaryContainer());
