@@ -1,96 +1,107 @@
-// import 'package:analyzer/dart/ast/ast.dart';
-// import 'package:analyzer/diagnostic/diagnostic.dart';
-// import 'package:analyzer/error/error.dart' hide LintCode;
-// import 'package:analyzer/error/listener.dart';
-// import 'package:custom_lint_builder/custom_lint_builder.dart';
-// import 'package:rexios_lints/analyzer_plugin/utils.dart';
+import 'package:analysis_server_plugin/edit/dart/correction_producer.dart';
+import 'package:analysis_server_plugin/edit/dart/dart_fix_kind_priority.dart';
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
+import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 
-// /// Prefer immutable classes
-// class PreferImmutableClasses extends DartLintRule {
-//   static const _code = LintCode(
-//     name: 'prefer_immutable_classes',
-//     problemMessage: 'Classes with only getters should be immutable.',
-//     correctionMessage: 'Add the @immutable annotation to the class.',
-//     errorSeverity: DiagnosticSeverity.INFO,
-//   );
+/// Prefer immutable classes
+class PreferImmutableClasses extends AnalysisRule {
+  static const code = LintCode(
+    'prefer_immutable_classes',
+    'Classes with only getters should be immutable.',
+    correctionMessage: 'Add the @immutable annotation to the class.',
+    severity: DiagnosticSeverity.INFO,
+  );
 
-//   /// Constructor
-//   const PreferImmutableClasses() : super(code: _code);
+  /// Constructor
+  PreferImmutableClasses()
+    : super(name: code.name, description: code.problemMessage);
 
-//   @override
-//   void run(
-//     CustomLintResolver resolver,
-//     DiagnosticReporter reporter,
-//     CustomLintContext context,
-//   ) {
-//     context.registry.addClassDeclaration((node) {
-//       final element = node.declaredFragment?.element;
-//       if (element == null) return;
+  @override
+  LintCode get diagnosticCode => code;
 
-//       final hasConstructorWithParameters = node.members.any(
-//         (e) =>
-//             e is ConstructorDeclaration && e.parameters.parameters.isNotEmpty,
-//       );
-//       if (!hasConstructorWithParameters) return;
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addClassDeclaration(this, visitor);
+  }
+}
 
-//       final isImmutable = [
-//         ...node.metadata.map((e) => e.name.name),
-//         ...element.allSupertypes
-//             .expand((e) => e.element.metadata.annotations)
-//             .map((e) => e.element?.displayName)
-//             .whereType<String>(),
-//       ].any((e) => e == 'immutable');
-//       if (isImmutable) return;
+class _Visitor extends SimpleAstVisitor<void> {
+  final AnalysisRule rule;
+  final RuleContext context;
 
-//       final hasOnlyGetters =
-//           node.members.whereType<FieldDeclaration>().every(
-//             (e) => !e.isStatic && e.fields.isFinal,
-//           ) &&
-//           element.allSupertypes.every((e) => e.setters.isEmpty);
-//       if (!hasOnlyGetters) return;
+  _Visitor(this.rule, this.context);
 
-//       reporter.atToken(node.name, _code);
-//     });
-//   }
+  @override
+  void visitClassDeclaration(ClassDeclaration node) {
+    final element = node.declaredFragment?.element;
+    if (element == null) return;
 
-//   @override
-//   List<Fix> getFixes() => [_MakeImmutableFix()];
-// }
+    final hasConstructorWithParameters = node.members.any(
+      (e) => e is ConstructorDeclaration && e.parameters.parameters.isNotEmpty,
+    );
+    if (!hasConstructorWithParameters) return;
 
-// class _MakeImmutableFix extends DartFix {
-//   @override
-//   void run(
-//     CustomLintResolver resolver,
-//     ChangeReporter reporter,
-//     CustomLintContext context,
-//     Diagnostic analysisError,
-//     List<Diagnostic> others,
-//   ) async {
-//     final resolved = await resolver.getResolvedUnitResult();
+    final isImmutable = [
+      ...node.metadata.map((e) => e.name.name),
+      ...element.allSupertypes
+          .expand((e) => e.element.metadata.annotations)
+          .map((e) => e.element?.displayName)
+          .whereType<String>(),
+    ].any((e) => e == 'immutable');
+    if (isImmutable) return;
 
-//     context.registry.addClassDeclaration((node) {
-//       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;
+    final hasOnlyGetters =
+        node.members.whereType<FieldDeclaration>().every(
+          (e) => !e.isStatic && e.fields.isFinal,
+        ) &&
+        element.allSupertypes.every((e) => e.setters.isEmpty);
+    if (!hasOnlyGetters) return;
 
-//       final builder = reporter.createChangeBuilder(
-//         message: 'Add the @immutable annotation to the class',
-//         // TODO: Is there a standard priority for lint fixes
-//         priority: 999,
-//       );
+    rule.reportAtToken(node.name);
+  }
+}
 
-//       builder.addDartFileEdit((builder) {
-//         final metaImport = resolved.importFromUri('package:meta/meta.dart');
-//         if (metaImport == null) {
-//           builder.addSimpleInsertion(
-//             resolved.lastImportEnd,
-//             resolved.createImportText('package:meta/meta.dart'),
-//           );
-//         }
+/// Fix for `prefer_immutable_classes`
 
-//         builder.addSimpleInsertion(
-//           node.firstTokenAfterCommentAndMetadata.offset,
-//           '@immutable\n',
-//         );
-//       });
-//     });
-//   }
-// }
+class MakeImmutable extends ResolvedCorrectionProducer {
+  static const _kind = FixKind(
+    'rexios_lints.fix.makeImmutable',
+    DartFixKindPriority.standard,
+    'Add the @immutable annotation to the class',
+  );
+
+  /// Constructor
+  MakeImmutable({required super.context});
+
+  @override
+  CorrectionApplicability get applicability =>
+      CorrectionApplicability.singleLocation;
+
+  @override
+  FixKind get fixKind => _kind;
+
+  @override
+  Future<void> compute(ChangeBuilder builder) async {
+    final node = this.node;
+    if (node is! ClassDeclaration) return;
+
+    await builder.addDartFileEdit(file, (builder) {
+      builder.importLibraryElement(Uri.parse('package:meta/meta.dart'));
+
+      builder.addSimpleInsertion(
+        node.firstTokenAfterCommentAndMetadata.offset,
+        '@immutable\n',
+      );
+    });
+  }
+}
