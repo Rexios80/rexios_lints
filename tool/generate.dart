@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:path/path.dart' as path;
+
 final core = [
   'always_declare_return_types',
   'always_use_package_imports',
@@ -37,10 +39,15 @@ final flutter = [
 
 final package = ['public_member_api_docs']..sort();
 
-const customLint = '''
-analyzer:
-  plugins:
-    - custom_lint''';
+final version = File('pubspec.yaml')
+    .readAsLinesSync()
+    .firstWhere((e) => e.startsWith('version:'))
+    .split(':')[1]
+    .trim();
+
+final plugins = '''
+plugins:
+  rexios_lints: ^$version''';
 
 void main() {
   write(
@@ -64,10 +71,10 @@ void write({
   required List<String> coreLints,
   required List<String> packageLints,
 }) {
-  Directory('lib/$folder').createSync(recursive: true);
+  Directory(path.join('lib', folder)).createSync(recursive: true);
 
   // Write core lints
-  File('lib/$folder/core.yaml').writeAsStringSync('''
+  File(path.join('lib', folder, 'core.yaml')).writeAsStringSync('''
 include: $coreInclude
 
 linter:
@@ -76,14 +83,14 @@ ${coreLints.map((e) => '    - $e').join('\n')}
 ''');
 
   // Write core_extra lints
-  File('lib/$folder/core_extra.yaml').writeAsStringSync('''
+  File(path.join('lib', folder, 'core_extra.yaml')).writeAsStringSync('''
 include: package:rexios_lints/$folder/core.yaml
 
-$customLint
+$plugins
 ''');
 
   // Write package lints
-  File('lib/$folder/package.yaml').writeAsStringSync('''
+  File(path.join('lib', folder, 'package.yaml')).writeAsStringSync('''
 include: package:rexios_lints/$folder/core.yaml
 
 linter:
@@ -92,9 +99,9 @@ ${packageLints.map((e) => '    - $e').join('\n')}
 ''');
 
   // Write package_extra lints
-  File('lib/$folder/package_extra.yaml').writeAsStringSync('''
+  File(path.join('lib', folder, 'package_extra.yaml')).writeAsStringSync('''
 include: package:rexios_lints/$folder/package.yaml
 
-$customLint
+$plugins
 ''');
 }

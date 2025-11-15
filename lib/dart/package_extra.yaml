@@ -1,5 +1,4 @@
 include: package:rexios_lints/dart/package.yaml
 
-analyzer:
-  plugins:
-    - custom_lint
+plugins:
+  rexios_lints: ^17.0.0
