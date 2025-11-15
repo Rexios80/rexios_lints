@@ -14,6 +14,8 @@ class DoNotUseStatefulBuilderTest extends AnalysisRuleTest {
     super.setUp();
   }
 
+  // TODO: Enable when importing flutter package is supported
+  @skippedTest
   void test_invalid() async {
     await assertDiagnostics(
       '''
@@ -28,7 +30,6 @@ final _ = StatefulBuilder(builder: (_, _) => const SizedBox.shrink());
 
 void main() {
   defineReflectiveSuite(() {
-    // TODO: Enable when importing flutter package is supported
-    // defineReflectiveTests(DoNotUseStatefulBuilderTest);
+    defineReflectiveTests(DoNotUseStatefulBuilderTest);
   });
 }

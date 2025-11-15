@@ -30,8 +30,9 @@ class RexiosLintsPlugin extends Plugin {
       ..registerWarningRule(NotNullAssertion())
       ..registerWarningRule(PreferAsyncAwait())
       ..registerWarningRule(PreferImmutableClasses())
-      ..registerFixForRule(PreferImmutableClasses.code, MakeImmutable.new);
-    // ..registerWarningRule(PreferTimestamps())
+      ..registerFixForRule(PreferImmutableClasses.code, MakeImmutable.new)
+      ..registerWarningRule(PreferTimestamps())
+      ..registerFixForRule(PreferTimestamps.code, UseTimestamp.new);
     // ..registerWarningRule(UnnecessaryContainer());
   }
 }

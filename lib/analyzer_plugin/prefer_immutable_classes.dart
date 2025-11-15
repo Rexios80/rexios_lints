@@ -8,7 +8,6 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
-import 'package:collection/collection.dart';
 import 'package:rexios_lints/analyzer_plugin/utils.dart';
 
 /// Prefer immutable classes

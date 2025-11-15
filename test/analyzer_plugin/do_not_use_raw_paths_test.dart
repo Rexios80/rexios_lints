@@ -33,11 +33,12 @@ final _ = $entity('$path');
   }
 
   // TODO: Figure out why Link isn't resolving
-  // void test_link() async {
-  //   await assertDiagnostics(content('Link', 'path/to/entity'), [
-  //     lint(39, 16),
-  //   ]);
-  // }
+  @skippedTest
+  void test_link() async {
+    await assertDiagnostics(content('Link', 'path/to/entity'), [
+      lint(39, 16),
+    ]);
+  }
 
   void test_back_slash() async {
     await assertDiagnostics(content('Directory', 'path\\to\\directory'), [
