@@ -77,9 +77,10 @@ class _Visitor extends SimpleAstVisitor<void> {
     if (isImmutable) return;
 
     final hasOnlyGetters =
-        node.members.whereType<FieldDeclaration>().every(
-          (e) => !e.isStatic && e.fields.isFinal,
-        ) &&
+        node.members
+            .whereType<FieldDeclaration>()
+            .where((e) => !e.isStatic)
+            .every((e) => e.fields.isFinal) &&
         element.allSupertypes.every((e) => e.setters.isEmpty);
     if (!hasOnlyGetters) return;
 

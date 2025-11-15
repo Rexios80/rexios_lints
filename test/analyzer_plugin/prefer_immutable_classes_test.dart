@@ -106,12 +106,15 @@ class MutableSubclass extends MutableSupertype {
     await assertDiagnostics(
       content('''
 class ImmutableClass {
-  static const value = 0;
+  static const constValue = 0;
+  static final finalValue = 0;
 
-  ImmutableClass();
+  final int value;
+
+  ImmutableClass(this.value);
 }
 '''),
-      [lint(151, 17)],
+      [lint(80, 14)],
     );
   }
 }
