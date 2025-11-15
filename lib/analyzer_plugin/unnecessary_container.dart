@@ -149,7 +149,12 @@ class UseSpecializedWidget extends ResolvedCorrectionProducer {
 
       if (widget == null) return;
 
-      await build('$widget${node.argumentList.toSource()}');
+      final arguments = node.argumentList.toSource().replaceFirst(
+        'foregroundDecoration:',
+        'decoration:',
+      );
+
+      await build('$widget$arguments');
     } else if (_canBeSizedBox(node)) {
       await build('SizedBox${node.argumentList.toSource()}');
     } else if (_canBeTransform(node)) {
