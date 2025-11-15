@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 /// List all rules since this version (inclusive)
@@ -34,6 +35,7 @@ void main() async {
   }
 }
 
+@immutable
 class Rule {
   final String name;
   final String description;
@@ -41,7 +43,7 @@ class Rule {
   final Set<String> sets;
   final Version sinceDartSdk;
 
-  Rule({
+  const Rule({
     required this.name,
     required this.description,
     required this.state,
