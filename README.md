@@ -23,7 +23,7 @@ Project:
 include: package:rexios_lints/{dart|flutter}/core.yaml
 ```
 
-Project with `custom_lint` enabled:
+Project with the analyzer plugin enabled:
 
 ```yaml
 include: package:rexios_lints/{dart|flutter}/core_extra.yaml
@@ -35,21 +35,15 @@ Package:
 include: package:rexios_lints/{dart|flutter}/package.yaml
 ```
 
-Package with `custom_lint` enabled:
+Package with the analyzer plugin enabled:
 
 ```yaml
 include: package:rexios_lints/{dart|flutter}/package_extra.yaml
 ```
 
-## Custom lints
+## Analyzer plugin
 
-The `extra` rulesets include custom lint rules created with the [custom_lint](https://pub.dev/packages/custom_lint) package. See the `custom_lint` documentation for help configuring custom lints.
-
-To check for custom lint issues in CI run the following command:
-
-```console
-dart run custom_lint
-```
+The `extra` rulesets include an [analyzer plugin](https://dart.dev/tools/analyzer-plugins) with custom diagnostics. See the [analyzer plugin documentation](https://dart.dev/tools/analyzer-plugins#configure-diagnostics) for help configuring diagnostics from analyzer plugins.
 
 ## Justification
 
