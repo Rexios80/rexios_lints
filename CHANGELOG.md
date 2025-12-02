@@ -1,3 +1,7 @@
+## 17.0.1
+
+- Upgrades `analyzer` to version `9.0.0`
+
 ## 17.0.0
 
 - All rules rewritten for the new plugin system
