@@ -1,5 +1,6 @@
 # Linting rules for a Dart project with custom lints enabled
-include: package:rexios_lints/dart/core_extra.yaml
+# Do not use the extra ruleset so that a path dependency can be used
+include: package:rexios_lints/dart/core.yaml
 
 plugins:
   rexios_lints:

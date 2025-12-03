@@ -47,7 +47,8 @@ final version = File('pubspec.yaml')
 
 final plugins = '''
 plugins:
-  rexios_lints: ^$version''';
+  rexios_lints:
+    version: ^$version''';
 
 void main() {
   write(

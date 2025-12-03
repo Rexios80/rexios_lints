@@ -1,3 +1,7 @@
+## 17.0.2
+
+- Restructures the plugins block to allow easier rule configuration
+
 ## 17.0.1
 
 - Upgrades `analyzer` to version `9.0.0`

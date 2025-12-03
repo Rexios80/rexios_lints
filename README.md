@@ -43,7 +43,18 @@ include: package:rexios_lints/{dart|flutter}/package_extra.yaml
 
 ## Analyzer plugin
 
-The `extra` rulesets include an [analyzer plugin](https://dart.dev/tools/analyzer-plugins) with custom diagnostics. See the [analyzer plugin documentation](https://dart.dev/tools/analyzer-plugins#configure-diagnostics) for help configuring diagnostics from analyzer plugins.
+The `extra` rulesets include an [analyzer plugin](https://dart.dev/tools/analyzer-plugins) with custom diagnostics.
+
+Here is an example of how to disable specific diagnostics from the analyzer plugin:
+
+```yaml
+include: package:rexios_lints/dart/package_extra.yaml
+
+plugins:
+  rexios_lints:
+    diagnostics:
+      not_null_assertion: false
+```
 
 ## Justification
 

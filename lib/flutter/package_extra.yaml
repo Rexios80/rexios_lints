@@ -1,4 +1,5 @@
 include: package:rexios_lints/flutter/package.yaml
 
 plugins:
-  rexios_lints: ^17.0.0
+  rexios_lints:
+    version: ^17.0.2
