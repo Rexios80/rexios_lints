@@ -1,3 +1,7 @@
+## 17.0.3
+
+- Dependency upgrades
+
 ## 17.0.2
 
 - Restructures the plugins block to allow easier rule configuration
