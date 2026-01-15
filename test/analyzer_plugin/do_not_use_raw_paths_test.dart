@@ -7,7 +7,7 @@ import 'package:analyzer/src/lint/registry.dart';
 @reflectiveTest
 class DoNotUseRawPathsTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => DoNotUseRawPaths.code.name;
+  String get analysisRule => DoNotUseRawPaths.code.lowerCaseName;
 
   @override
   void setUp() {

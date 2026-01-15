@@ -22,7 +22,7 @@ class DoubleLeadingZero extends AnalysisRule {
 
   /// Constructor
   DoubleLeadingZero()
-    : super(name: code.name, description: code.problemMessage);
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

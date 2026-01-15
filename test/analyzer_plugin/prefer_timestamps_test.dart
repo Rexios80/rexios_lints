@@ -6,7 +6,7 @@ import 'package:analyzer/src/lint/registry.dart';
 @reflectiveTest
 class PreferTimestampsTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => PreferTimestamps.code.name;
+  String get analysisRule => PreferTimestamps.code.lowerCaseName;
 
   @override
   void setUp() {

@@ -22,7 +22,7 @@ class PreferImmutableClasses extends AnalysisRule {
 
   /// Constructor
   PreferImmutableClasses()
-    : super(name: code.name, description: code.problemMessage);
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;
@@ -49,7 +49,7 @@ class _Visitor extends SimpleAstVisitor<void> {
     final element = node.declaredFragment?.element;
     if (element == null) return;
 
-    final hasConstructorWithParameters = node.members.any(
+    final hasConstructorWithParameters = node.body.childEntities.any(
       (e) => e is ConstructorDeclaration && e.parameters.parameters.isNotEmpty,
     );
     if (!hasConstructorWithParameters) return;
@@ -64,14 +64,14 @@ class _Visitor extends SimpleAstVisitor<void> {
     if (isImmutable) return;
 
     final hasOnlyGetters =
-        node.members
+        node.body.childEntities
             .whereType<FieldDeclaration>()
             .where((e) => !e.isStatic)
             .every((e) => e.fields.isFinal) &&
         element.allSupertypes.every((e) => e.setters.isEmpty);
     if (!hasOnlyGetters) return;
 
-    rule.reportAtToken(node.name);
+    rule.reportAtToken(node.namePart.typeName);
   }
 }
 

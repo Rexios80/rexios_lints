@@ -22,7 +22,8 @@ class PreferTimestamps extends AnalysisRule {
   );
 
   /// Constructor
-  PreferTimestamps() : super(name: code.name, description: code.problemMessage);
+  PreferTimestamps()
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

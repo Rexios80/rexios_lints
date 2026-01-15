@@ -6,7 +6,7 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 @reflectiveTest
 class InlineContextLookupsTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => InlineContextLookups.code.name;
+  String get analysisRule => InlineContextLookups.code.lowerCaseName;
 
   @override
   void setUp() {

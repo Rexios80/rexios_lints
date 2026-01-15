@@ -16,7 +16,8 @@ class PreferAsyncAwait extends AnalysisRule {
   );
 
   /// Constructor
-  PreferAsyncAwait() : super(name: code.name, description: code.problemMessage);
+  PreferAsyncAwait()
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

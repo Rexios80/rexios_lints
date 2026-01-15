@@ -6,7 +6,7 @@ import 'package:analyzer/src/lint/registry.dart';
 @reflectiveTest
 class NotNullAssertionTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => NotNullAssertion.code.name;
+  String get analysisRule => NotNullAssertion.code.lowerCaseName;
 
   @override
   void setUp() {

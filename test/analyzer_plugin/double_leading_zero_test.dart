@@ -6,7 +6,7 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 @reflectiveTest
 class DoubleLeadingZeroTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => DoubleLeadingZero.code.name;
+  String get analysisRule => DoubleLeadingZero.code.lowerCaseName;
 
   @override
   void setUp() {

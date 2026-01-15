@@ -7,7 +7,7 @@ import 'package:analyzer/src/lint/registry.dart';
 @reflectiveTest
 class UnnecessaryContainerTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => UnnecessaryContainer.code.name;
+  String get analysisRule => UnnecessaryContainer.code.lowerCaseName;
 
   @override
   void setUp() {

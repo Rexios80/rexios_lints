@@ -6,7 +6,7 @@ import 'package:analyzer/src/lint/registry.dart';
 @reflectiveTest
 class DoNotUseStatefulBuilderTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => DoNotUseStatefulBuilder.code.name;
+  String get analysisRule => DoNotUseStatefulBuilder.code.lowerCaseName;
 
   @override
   void setUp() {

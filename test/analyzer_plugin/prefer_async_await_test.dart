@@ -6,7 +6,7 @@ import 'package:analyzer/src/lint/registry.dart';
 @reflectiveTest
 class PreferAsyncAwaitTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => PreferAsyncAwait.code.name;
+  String get analysisRule => PreferAsyncAwait.code.lowerCaseName;
 
   @override
   void setUp() {

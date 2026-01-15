@@ -18,7 +18,8 @@ class NotNullAssertion extends AnalysisRule {
   );
 
   /// Constructor
-  NotNullAssertion() : super(name: code.name, description: code.problemMessage);
+  NotNullAssertion()
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

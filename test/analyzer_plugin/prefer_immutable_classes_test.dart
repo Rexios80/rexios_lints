@@ -6,7 +6,7 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 @reflectiveTest
 class PreferImmutableClassesTest extends AnalysisRuleTest {
   @override
-  String get analysisRule => PreferImmutableClasses.code.name;
+  String get analysisRule => PreferImmutableClasses.code.lowerCaseName;
 
   @override
   void setUp() {
