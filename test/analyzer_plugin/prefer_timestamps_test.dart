@@ -12,14 +12,20 @@ class PreferTimestampsTest extends AnalysisRuleTest {
   void setUp() {
     Registry.ruleRegistry.registerLintRule(PreferTimestamps());
     super.setUp();
+
+    final core = getFile('/sdk/lib/core/core.dart');
+    final coreContent = core.readAsStringSync();
+    final newCoreContent = coreContent.replaceAll(
+      RegExp(r'DateTime.now\(\).*'),
+      'DateTime.now();\nDateTime.timestamp();',
+    );
+    core.writeAsStringSync(newCoreContent);
   }
 
   void test_invalid() async {
     await assertDiagnostics('final _ = DateTime.now();', [lint(10, 14)]);
   }
 
-  // TODO: Figure out why this is not working
-  @skippedTest
   void test_valid() async {
     await assertNoDiagnostics('final _ = DateTime.timestamp();');
   }
