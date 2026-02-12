@@ -9,21 +9,34 @@ class DoNotUseStatefulBuilderTest extends AnalysisRuleTest {
   String get analysisRule => DoNotUseStatefulBuilder.code.lowerCaseName;
 
   @override
+  bool get addFlutterPackageDep => true;
+
+  @override
   void setUp() {
     Registry.ruleRegistry.registerLintRule(DoNotUseStatefulBuilder());
     super.setUp();
+
+    newFile(
+      join(packagesRootPath, 'flutter', 'lib', 'src', 'widgets', 'basic.dart'),
+      '''
+class StatefulBuilder {
+  const StatefulBuilder({builder});
+}
+class SizedBox {
+  const SizedBox.shrink();
+}
+''',
+    );
   }
 
-  // TODO: Enable when importing flutter package is supported
-  @skippedTest
   void test_invalid() async {
     await assertDiagnostics(
       '''
-import 'flutter/widgets.dart';
+import 'package:flutter/widgets.dart';
 
 final _ = StatefulBuilder(builder: (_, _) => const SizedBox.shrink());
 ''',
-      [lint(3, 1)],
+      [lint(50, 59)],
     );
   }
 }
