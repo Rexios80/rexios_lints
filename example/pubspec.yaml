@@ -14,3 +14,6 @@ dependencies:
 dev_dependencies:
   rexios_lints:
     path: ../
+
+dependency_overrides:
+  meta: ^1.18.0

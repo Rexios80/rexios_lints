@@ -13,6 +13,19 @@ class DoNotUseRawPathsTest extends AnalysisRuleTest {
   void setUp() {
     Registry.ruleRegistry.registerLintRule(DoNotUseRawPaths());
     super.setUp();
+
+    newFile(join('/sdk', 'lib', 'io', 'io.dart'), '''
+class FileSystemEntity {}
+class Directory extends FileSystemEntity {
+  Directory(String path);
+}
+class File extends FileSystemEntity {
+  File(String path);
+}
+class Link extends FileSystemEntity {
+  Link(String path);
+}
+''');
   }
 
   static String content(String entity, String path) =>
@@ -32,10 +45,8 @@ final _ = $entity('$path');
     await assertDiagnostics(content('File', 'path/to/file'), [lint(34, 14)]);
   }
 
-  // TODO: Figure out why Link isn't resolving
-  @skippedTest
   void test_link() async {
-    await assertDiagnostics(content('Link', 'path/to/entity'), [lint(39, 16)]);
+    await assertDiagnostics(content('Link', 'path/to/entity'), [lint(34, 16)]);
   }
 
   void test_back_slash() async {

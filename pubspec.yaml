@@ -24,3 +24,6 @@ dev_dependencies:
   analyzer_testing: ^0.1.10
   test_reflective_loader: ^0.4.0
   path: ^1.9.1
+
+dependency_overrides:
+  meta: ^1.18.0
