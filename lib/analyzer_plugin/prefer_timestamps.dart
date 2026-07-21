@@ -10,6 +10,7 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dar
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:meta/meta.dart';
+import 'package:rexios_lints/analyzer_plugin/utils.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Prefer UTC timestamps
@@ -18,7 +19,8 @@ class PreferTimestamps extends AnalysisRule {
   static const code = LintCode(
     'prefer_timestamps',
     'Prefer creating UTC timestamps. Local time should only be used for display purposes.',
-    correctionMessage: 'Use DateTime.timestamp() instead.',
+    correctionMessage:
+        'Use DateTime.timestamp() or clock.now().toUtc() instead.',
   );
 
   /// Constructor
@@ -34,7 +36,9 @@ class PreferTimestamps extends AnalysisRule {
     RuleContext context,
   ) {
     final visitor = _Visitor(this, context);
-    registry.addInstanceCreationExpression(this, visitor);
+    registry
+      ..addInstanceCreationExpression(this, visitor)
+      ..addMethodInvocation(this, visitor);
   }
 }
 
@@ -45,6 +49,12 @@ class _Visitor extends SimpleAstVisitor<void> {
     DateTime,
     inPackage: 'core',
     inSdk: true,
+  );
+
+  /// Type checker for `Clock` from `package:clock`
+  static final clockTypeChecker = TypeChecker.typeNamed(
+    TypeNamed('Clock'),
+    inPackage: 'clock',
   );
 
   final AnalysisRule rule;
@@ -63,10 +73,31 @@ class _Visitor extends SimpleAstVisitor<void> {
 
     rule.reportAtNode(node);
   }
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    final targetType = node.target?.staticType;
+    if (targetType == null ||
+        node.methodName.name != 'now' ||
+        !clockTypeChecker.isExactlyType(targetType)) {
+      return;
+    }
+
+    // Allow clock.now().toUtc()
+    final parent = node.parent;
+    if (parent is MethodInvocation &&
+        parent.target == node &&
+        parent.methodName.name == 'toUtc') {
+      return;
+    }
+
+    rule.reportAtNode(node);
+  }
 }
 
-/// Fix for `prefer_timestamps`
-class UseTimestamp extends ResolvedCorrectionProducer {
+/// Fix for `prefer_timestamps` that replaces `DateTime.now()` with
+/// `DateTime.timestamp()`
+class UseDateTimeTimestamp extends ResolvedCorrectionProducer {
   static const _kind = FixKind(
     'rexios_lints.fix.useTimestamp',
     DartFixKindPriority.standard,
@@ -74,7 +105,7 @@ class UseTimestamp extends ResolvedCorrectionProducer {
   );
 
   /// Constructor
-  UseTimestamp({required super.context});
+  UseDateTimeTimestamp({required super.context});
 
   @override
   CorrectionApplicability get applicability =>
@@ -85,8 +116,40 @@ class UseTimestamp extends ResolvedCorrectionProducer {
 
   @override
   Future<void> compute(ChangeBuilder builder) async {
+    final node = this.node;
+    if (node is! InstanceCreationExpression) return;
+
     await builder.addDartFileEdit(file, (builder) {
       builder.addSimpleReplacement(range.entity(node), 'DateTime.timestamp()');
+    });
+  }
+}
+
+/// Fix for `prefer_timestamps` that appends `.toUtc()` to `clock.now()`
+class UseClockNowUtc extends ResolvedCorrectionProducer {
+  static const _kind = FixKind(
+    'rexios_lints.fix.useClockNowUtc',
+    DartFixKindPriority.standard,
+    'Use clock.now().toUtc()',
+  );
+
+  /// Constructor
+  UseClockNowUtc({required super.context});
+
+  @override
+  CorrectionApplicability get applicability =>
+      CorrectionApplicability.singleLocation;
+
+  @override
+  FixKind get fixKind => _kind;
+
+  @override
+  Future<void> compute(ChangeBuilder builder) async {
+    final node = this.node;
+    if (node is! MethodInvocation) return;
+
+    await builder.addDartFileEdit(file, (builder) {
+      builder.addSimpleInsertion(node.end, '.toUtc()');
     });
   }
 }

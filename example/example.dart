@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:clock/clock.dart';
 import 'package:flutter/widgets.dart';
 
 // ignore: prefer_single_quotes
@@ -49,6 +50,9 @@ void preferTimestamps() {
   // ignore: rexios_lints/prefer_timestamps
   DateTime.now();
   DateTime.timestamp();
+
+  // ignore: rexios_lints/prefer_timestamps
+  clock.now();
 }
 
 void doNotUseRawPaths() {

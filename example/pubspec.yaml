@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.16.0
+  clock: ^1.1.2
 
 dev_dependencies:
   rexios_lints:
