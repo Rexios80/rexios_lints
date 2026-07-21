@@ -3,7 +3,6 @@ import 'package:rexios_lints/analyzer_plugin/unnecessary_container.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 import 'package:analyzer/src/lint/registry.dart';
 
-// TODO: Enable these tests when importing flutter package is supported
 @reflectiveTest
 class UnnecessaryContainerTest extends AnalysisRuleTest {
   @override
