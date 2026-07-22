@@ -1,3 +1,7 @@
+## 18.0.0
+
+- `prefer_timestamps` now also flags `clock.now()` and suggests `clock.now().toUtc()`
+
 ## 17.0.4
 
 - Dependency upgrades

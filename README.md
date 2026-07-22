@@ -251,7 +251,7 @@ prefer_immutable_classes
 prefer_timestamps
 
 - Safety
-- Creating anything other than UTC timestamps with `DateTime.timestamp()` could lead to storing bad data
+- Creating anything other than UTC timestamps with `DateTime.timestamp()` or `clock.now().toUtc()` could lead to storing bad data
 
 unnecessary_container
 

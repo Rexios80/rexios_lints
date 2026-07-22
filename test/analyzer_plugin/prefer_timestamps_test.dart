@@ -11,23 +11,68 @@ class PreferTimestampsTest extends AnalysisRuleTest {
   @override
   void setUp() {
     Registry.ruleRegistry.registerLintRule(PreferTimestamps());
+
+    newPackage('clock').addFile('lib/clock.dart', '''
+class Clock {
+  DateTime now() => DateTime.now();
+}
+final Clock clock = Clock();
+''');
+
     super.setUp();
 
     final core = getFile('/sdk/lib/core/core.dart');
     final coreContent = core.readAsStringSync();
-    final newCoreContent = coreContent.replaceAll(
-      RegExp(r'DateTime.now\(\).*'),
-      'DateTime.now();\nDateTime.timestamp();',
-    );
+    final newCoreContent = coreContent
+        .replaceAll(
+          RegExp(r'DateTime.now\(\).*'),
+          'DateTime.now();\nDateTime.timestamp();',
+        )
+        .replaceAll(
+          'external int get millisecondsSinceEpoch;',
+          'external int get millisecondsSinceEpoch;\n'
+              'external DateTime toUtc();',
+        );
     core.writeAsStringSync(newCoreContent);
   }
 
-  void test_invalid() async {
+  void test_dateTimeNow() async {
     await assertDiagnostics('final _ = DateTime.now();', [lint(10, 14)]);
   }
 
-  void test_valid() async {
+  void test_dateTimeTimestamp() async {
     await assertNoDiagnostics('final _ = DateTime.timestamp();');
+  }
+
+  void test_clockNow() async {
+    await assertDiagnostics(
+      '''
+import 'package:clock/clock.dart';
+
+final _ = clock.now();
+''',
+      [lint(46, 11)],
+    );
+  }
+
+  void test_clockNowToUtc() async {
+    await assertNoDiagnostics('''
+import 'package:clock/clock.dart';
+
+final _ = clock.now().toUtc();
+''');
+  }
+
+  void test_customClockNow() async {
+    await assertDiagnostics(
+      '''
+import 'package:clock/clock.dart';
+
+final myClock = Clock();
+final _ = myClock.now();
+''',
+      [lint(71, 13)],
+    );
   }
 }
 
