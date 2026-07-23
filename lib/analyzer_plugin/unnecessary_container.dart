@@ -130,12 +130,12 @@ class UseSpecializedWidget extends ResolvedCorrectionProducer {
       if (childArgument == null) {
         await build('const SizedBox.shrink()');
       } else {
-        await build(childArgument.expression.toSource());
+        await build(childArgument.argumentExpression.toSource());
       }
     } else if (otherArguments.length == 1) {
-      final otherArgument = otherArguments.single as NamedExpression;
+      final otherArgument = otherArguments.single as NamedArgument;
 
-      final widget = switch (otherArgument.name.label.name) {
+      final widget = switch (otherArgument.name.lexeme) {
         'alignment' => 'Align',
         'padding' || 'margin' => 'Padding',
         'color' => 'ColoredBox',
@@ -159,10 +159,10 @@ class UseSpecializedWidget extends ResolvedCorrectionProducer {
       await build('SizedBox${node.argumentList.toSource()}');
     } else if (_canBeTransform(node)) {
       final arguments = node.argumentList.arguments
-          .whereType<NamedExpression>()
+          .whereType<NamedArgument>()
           .map((argument) {
-            if (argument.name.label.name == 'transformAlignment') {
-              return 'alignment: ${argument.expression.toSource()}';
+            if (argument.name.lexeme == 'transformAlignment') {
+              return 'alignment: ${argument.argumentExpression.toSource()}';
             }
             return argument.toSource();
           })

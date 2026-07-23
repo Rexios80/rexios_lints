@@ -7,9 +7,9 @@ import 'package:meta/meta.dart';
 /// Extension on [ArgumentList]
 extension ArgumentListExtension on ArgumentList {
   /// Get an argument by name
-  NamedExpression? argumentByName(String name) => arguments
-      .whereType<NamedExpression>()
-      .firstWhereOrNull((argument) => argument.name.label.name == name);
+  NamedArgument? argumentByName(String name) => arguments
+      .whereType<NamedArgument>()
+      .firstWhereOrNull((argument) => argument.name.lexeme == name);
 }
 
 /// Create a Type class whose toString() method returns the name
