@@ -1,3 +1,7 @@
+## 18.1.0
+
+- Supports `analyzer` version `14.0.0`
+
 ## 18.0.0
 
 - `prefer_timestamps` now also flags `clock.now()` and suggests `clock.now().toUtc()`
