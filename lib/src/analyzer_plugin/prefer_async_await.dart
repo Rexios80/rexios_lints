@@ -2,23 +2,25 @@ import 'package:analyzer/analysis_rule/analysis_rule.dart';
 import 'package:analyzer/analysis_rule/rule_context.dart';
 import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:meta/meta.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
+import 'package:source_gen/source_gen.dart';
 
-/// Do not use not-null assertion operators
-class NotNullAssertion extends AnalysisRule {
-  /// not_null_assertion
+/// Prefer async/await lint rule
+final preferAsyncAwait = RexiosLint(rule: PreferAsyncAwait());
+
+/// Prefer async/await over using raw futures
+class PreferAsyncAwait extends AnalysisRule {
+  /// prefer_async_await
   static const code = LintCode(
-    'not_null_assertion',
-    'Do not use not-null assertion operators.',
-    correctionMessage: 'Use null-aware operators instead.',
-    severity: DiagnosticSeverity.WARNING,
+    'prefer_async_await',
+    'Prefer async/await over using raw futures.',
   );
 
   /// Constructor
-  NotNullAssertion()
+  PreferAsyncAwait()
     : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
@@ -30,20 +32,33 @@ class NotNullAssertion extends AnalysisRule {
     RuleContext context,
   ) {
     final visitor = _Visitor(this, context);
-    registry.addPostfixExpression(this, visitor);
+    registry.addMethodInvocation(this, visitor);
   }
 }
 
 @immutable
 class _Visitor extends SimpleAstVisitor<void> {
+  /// Type checker for `Future`
+  static const futureTypeChecker = TypeChecker.typeNamed(
+    Future,
+    inPackage: 'async',
+    inSdk: true,
+  );
+
   final AnalysisRule rule;
   final RuleContext context;
 
   const _Visitor(this.rule, this.context);
 
   @override
-  void visitPostfixExpression(PostfixExpression node) {
-    if (node.operator.type != TokenType.BANG) return;
+  void visitMethodInvocation(MethodInvocation node) {
+    final targetType = node.target?.staticType;
+    if (targetType == null ||
+        node.methodName.name != 'then' ||
+        !futureTypeChecker.isExactlyType(targetType)) {
+      return;
+    }
+
     rule.reportAtNode(node);
   }
 }

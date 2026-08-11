@@ -2,22 +2,27 @@ import 'package:analyzer/analysis_rule/analysis_rule.dart';
 import 'package:analyzer/analysis_rule/rule_context.dart';
 import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:meta/meta.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
 
-/// Avoid inline context lookups
-class InlineContextLookups extends AnalysisRule {
-  /// inline_context_lookups
+/// Not null assertion lint rule
+final notNullAssertion = RexiosLint(rule: NotNullAssertion());
+
+/// Do not use not-null assertion operators
+class NotNullAssertion extends AnalysisRule {
+  /// not_null_assertion
   static const code = LintCode(
-    'inline_context_lookups',
-    'Avoid inline context lookups.',
-    correctionMessage:
-        'Store the result of context lookups in reusable variables.',
+    'not_null_assertion',
+    'Do not use not-null assertion operators.',
+    correctionMessage: 'Use null-aware operators instead.',
+    severity: DiagnosticSeverity.WARNING,
   );
 
   /// Constructor
-  InlineContextLookups()
+  NotNullAssertion()
     : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
@@ -29,7 +34,7 @@ class InlineContextLookups extends AnalysisRule {
     RuleContext context,
   ) {
     final visitor = _Visitor(this, context);
-    registry.addMethodInvocation(this, visitor);
+    registry.addPostfixExpression(this, visitor);
   }
 }
 
@@ -41,14 +46,8 @@ class _Visitor extends SimpleAstVisitor<void> {
   const _Visitor(this.rule, this.context);
 
   @override
-  void visitMethodInvocation(MethodInvocation node) {
-    if (node.parent is VariableDeclaration ||
-        !node.methodName.name.toLowerCase().endsWith('of') ||
-        node.argumentList.arguments.length != 1 ||
-        node.argumentList.arguments.first.toSource() != 'context') {
-      return;
-    }
-
+  void visitPostfixExpression(PostfixExpression node) {
+    if (node.operator.type != TokenType.BANG) return;
     rule.reportAtNode(node);
   }
 }

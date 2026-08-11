@@ -9,7 +9,14 @@ import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
-import 'package:rexios_lints/analyzer_plugin/utils.dart';
+import 'package:rexios_lints/src/utils.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
+
+/// Prefer immutable classes lint rule
+final preferImmutableClasses = RexiosLint(
+  rule: PreferImmutableClasses(),
+  fixes: [MakeImmutable.new],
+);
 
 /// Prefer immutable classes
 class PreferImmutableClasses extends AnalysisRule {

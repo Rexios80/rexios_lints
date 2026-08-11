@@ -1,5 +1,5 @@
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
-import 'package:rexios_lints/analyzer_plugin/do_not_use_raw_paths.dart';
+import 'package:rexios_lints/src/analyzer_plugin/do_not_use_raw_paths.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 import 'package:analyzer/src/lint/registry.dart';

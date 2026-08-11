@@ -5,18 +5,24 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:meta/meta.dart';
+import 'package:rexios_lints/src/utils.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
 import 'package:source_gen/source_gen.dart';
 
-/// Prefer async/await over using raw futures
-class PreferAsyncAwait extends AnalysisRule {
-  /// prefer_async_await
+/// Do not use StatefulBuilder lint rule
+final doNotUseStatefulBuilder = RexiosLint(rule: DoNotUseStatefulBuilder());
+
+/// Do not use StatefulBuilder
+class DoNotUseStatefulBuilder extends AnalysisRule {
+  /// do_not_use_stateful_builder
   static const code = LintCode(
-    'prefer_async_await',
-    'Prefer async/await over using raw futures.',
+    'do_not_use_stateful_builder',
+    'StatefulBuilder usage indicates this widget should be encapsulated.',
+    correctionMessage: 'Create a standalone StatefulWidget class.',
   );
 
   /// Constructor
-  PreferAsyncAwait()
+  DoNotUseStatefulBuilder()
     : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
@@ -28,17 +34,16 @@ class PreferAsyncAwait extends AnalysisRule {
     RuleContext context,
   ) {
     final visitor = _Visitor(this, context);
-    registry.addMethodInvocation(this, visitor);
+    registry.addInstanceCreationExpression(this, visitor);
   }
 }
 
 @immutable
 class _Visitor extends SimpleAstVisitor<void> {
-  /// Type checker for `Future`
-  static const futureTypeChecker = TypeChecker.typeNamed(
-    Future,
-    inPackage: 'async',
-    inSdk: true,
+  /// Type checker for `StatefulBuilder`
+  static const statefulBuilderTypeChecker = TypeChecker.typeNamed(
+    TypeNamed('StatefulBuilder'),
+    inPackage: 'flutter',
   );
 
   final AnalysisRule rule;
@@ -47,11 +52,10 @@ class _Visitor extends SimpleAstVisitor<void> {
   const _Visitor(this.rule, this.context);
 
   @override
-  void visitMethodInvocation(MethodInvocation node) {
-    final targetType = node.target?.staticType;
+  void visitInstanceCreationExpression(InstanceCreationExpression node) {
+    final targetType = node.staticType;
     if (targetType == null ||
-        node.methodName.name != 'then' ||
-        !futureTypeChecker.isExactlyType(targetType)) {
+        !statefulBuilderTypeChecker.isAssignableFromType(targetType)) {
       return;
     }
 

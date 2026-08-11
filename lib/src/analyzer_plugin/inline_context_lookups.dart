@@ -5,20 +5,23 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:meta/meta.dart';
-import 'package:rexios_lints/analyzer_plugin/utils.dart';
-import 'package:source_gen/source_gen.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
 
-/// Do not use StatefulBuilder
-class DoNotUseStatefulBuilder extends AnalysisRule {
-  /// do_not_use_stateful_builder
+/// Inline context lookups lint rule
+final inlineContextLookups = RexiosLint(rule: InlineContextLookups());
+
+/// Avoid inline context lookups
+class InlineContextLookups extends AnalysisRule {
+  /// inline_context_lookups
   static const code = LintCode(
-    'do_not_use_stateful_builder',
-    'StatefulBuilder usage indicates this widget should be encapsulated.',
-    correctionMessage: 'Create a standalone StatefulWidget class.',
+    'inline_context_lookups',
+    'Avoid inline context lookups.',
+    correctionMessage:
+        'Store the result of context lookups in reusable variables.',
   );
 
   /// Constructor
-  DoNotUseStatefulBuilder()
+  InlineContextLookups()
     : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
@@ -30,28 +33,23 @@ class DoNotUseStatefulBuilder extends AnalysisRule {
     RuleContext context,
   ) {
     final visitor = _Visitor(this, context);
-    registry.addInstanceCreationExpression(this, visitor);
+    registry.addMethodInvocation(this, visitor);
   }
 }
 
 @immutable
 class _Visitor extends SimpleAstVisitor<void> {
-  /// Type checker for `StatefulBuilder`
-  static const statefulBuilderTypeChecker = TypeChecker.typeNamed(
-    TypeNamed('StatefulBuilder'),
-    inPackage: 'flutter',
-  );
-
   final AnalysisRule rule;
   final RuleContext context;
 
   const _Visitor(this.rule, this.context);
 
   @override
-  void visitInstanceCreationExpression(InstanceCreationExpression node) {
-    final targetType = node.staticType;
-    if (targetType == null ||
-        !statefulBuilderTypeChecker.isAssignableFromType(targetType)) {
+  void visitMethodInvocation(MethodInvocation node) {
+    if (node.parent is VariableDeclaration ||
+        !node.methodName.name.toLowerCase().endsWith('of') ||
+        node.argumentList.arguments.length != 1 ||
+        node.argumentList.arguments.first.toSource() != 'context') {
       return;
     }
 

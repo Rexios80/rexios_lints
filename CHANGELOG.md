@@ -1,3 +1,7 @@
+## 18.2.0
+
+- Restructure the package so custom rules can be used in other analyzer plugins
+
 ## 18.1.0
 
 - Supports `analyzer` version `14.0.0`

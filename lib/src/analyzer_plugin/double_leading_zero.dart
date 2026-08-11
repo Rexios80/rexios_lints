@@ -10,6 +10,13 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dar
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:meta/meta.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
+
+/// Double leading zero lint rule
+final doubleLeadingZero = RexiosLint(
+  rule: DoubleLeadingZero(),
+  fixes: [AddLeadingZero.new],
+);
 
 /// Do use leading zeros in double literals
 class DoubleLeadingZero extends AnalysisRule {

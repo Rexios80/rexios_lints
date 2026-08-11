@@ -10,8 +10,15 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dar
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:meta/meta.dart';
-import 'package:rexios_lints/analyzer_plugin/utils.dart';
+import 'package:rexios_lints/src/utils.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
 import 'package:source_gen/source_gen.dart';
+
+/// Unnecessary container lint rule
+final unnecessaryContainer = RexiosLint(
+  rule: UnnecessaryContainer(),
+  fixes: [UseSpecializedWidget.new],
+);
 
 bool _canBeSizedBox(InstanceCreationExpression node) {
   final hasWidth = node.argumentList.argumentByName('width') != null;

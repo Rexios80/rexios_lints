@@ -1,5 +1,5 @@
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
-import 'package:rexios_lints/analyzer_plugin/not_null_assertion.dart';
+import 'package:rexios_lints/src/analyzer_plugin/not_null_assertion.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 import 'package:analyzer/src/lint/registry.dart';
 

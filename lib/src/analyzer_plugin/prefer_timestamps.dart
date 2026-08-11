@@ -10,8 +10,15 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dar
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:meta/meta.dart';
-import 'package:rexios_lints/analyzer_plugin/utils.dart';
+import 'package:rexios_lints/src/utils.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
 import 'package:source_gen/source_gen.dart';
+
+/// Prefer timestamps lint rule
+final preferTimestamps = RexiosLint(
+  rule: PreferTimestamps(),
+  fixes: [UseDateTimeTimestamp.new, UseClockNowUtc.new],
+);
 
 /// Prefer UTC timestamps
 class PreferTimestamps extends AnalysisRule {

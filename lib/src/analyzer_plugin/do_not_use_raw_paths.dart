@@ -11,12 +11,19 @@ import 'package:analyzer/error/error.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:meta/meta.dart';
+import 'package:rexios_lints/src/model/rexios_lint.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 
 final _pathSeparatorRegex = RegExp(r'[\\\/]');
 final _stringInterpolation1 = RegExp(r'^\${(.+?)}(.+?)?$');
 final _stringInterpolation2 = RegExp(r'^\$(\w+?)$');
+
+/// Do not use raw paths lint rule
+final doNotUseRawPaths = RexiosLint(
+  rule: DoNotUseRawPaths(),
+  fixes: [UsePathJoin.new],
+);
 
 /// Do not use raw paths
 class DoNotUseRawPaths extends AnalysisRule {
