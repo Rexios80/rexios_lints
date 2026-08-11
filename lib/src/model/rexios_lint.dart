@@ -5,7 +5,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:meta/meta.dart';
 
 /// A function that can be executed to create a [CorrectionProducer].
-/// 
+///
 /// Copied from [analysis_server_plugin] since it is not exported.
 typedef ProducerGenerator =
     CorrectionProducer<ParsedUnitResult> Function({
