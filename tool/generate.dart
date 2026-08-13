@@ -12,7 +12,6 @@ final core = [
   'empty_container_bodies',
   'initialize_in_field_declaration',
   'leading_newlines_in_multiline_strings',
-  'no_raw_types',
   'omit_local_variable_types',
   'omit_obvious_property_types',
   'prefer_final_in_for_each',

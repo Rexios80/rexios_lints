@@ -110,11 +110,6 @@ plugins:
 - Readability
 - Not all languages ignore a leading newline in multiline strings. Dart does, and it's more readable. No more remembering if Dart supports it or not.
 
-[no_raw_types](https://dart.dev/tools/linter-rules/no_raw_types)
-
-- Safety
-- Raw generic types don't infer type arguments. They use the type parameter bound, which is usually `dynamic`
-
 [omit_local_variable_types](https://dart.dev/tools/linter-rules/omit_local_variable_types)
 
 - Brevity

@@ -5,7 +5,6 @@
   - `async_return_with_no_await`
   - `empty_container_bodies`
   - `initialize_in_field_declaration`
-  - `no_raw_types`
   - `simple_directive_paths`
   - `simplify_variable_pattern`
   - `unnecessary_const_in_enum_constructor`
