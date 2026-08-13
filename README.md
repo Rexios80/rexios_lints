@@ -85,6 +85,16 @@ plugins:
 - Technical debt
 - In the rare case that ignoring a lint rule is unavoidable, the reason should be documented
 
+[empty_container_bodies](https://dart.dev/tools/linter-rules/empty_container_bodies)
+
+- Brevity
+- Empty class-like declarations can use `;` instead of `{}`
+
+[initialize_in_field_declaration](https://dart.dev/tools/linter-rules/initialize_in_field_declaration)
+
+- Readability
+- Field initialization is easier to find at the declaration than in a constructor
+
 [invalid_runtime_check_with_js_interop_types](https://dart.dev/tools/linter-rules/invalid_runtime_check_with_js_interop_types)
 
 - Safety
@@ -145,6 +155,11 @@ plugins:
 - Brevity
 - Switch cases no longer need explicit break statements as of Dart 3
 
+[unnecessary_const_in_enum_constructor](https://dart.dev/tools/linter-rules/unnecessary_const_in_enum_constructor)
+
+- Brevity
+- Generative enum constructors are implicitly `const`
+
 [unnecessary_ignore](https://dart.dev/tools/linter-rules/unnecessary_ignore)
 
 - Brevity
@@ -160,6 +175,21 @@ plugins:
 
 - Brevity
 - It's easy to end up with extra parenthesis when refactoring
+
+[unnecessary_primary_constructor_body](https://dart.dev/tools/linter-rules/unnecessary_primary_constructor_body)
+
+- Brevity
+- Empty primary constructor bodies can be replaced with `;`
+
+[unnecessary_type_name_in_constructor](https://dart.dev/tools/linter-rules/unnecessary_type_name_in_constructor)
+
+- Brevity
+- `new` is more concise than repeating the type name in constructor declarations
+
+[use_declaring_parameters](https://dart.dev/tools/linter-rules/use_declaring_parameters)
+
+- Brevity
+- Declaring parameters avoid repeating field names and types
 
 [use_null_aware_elements](https://dart.dev/tools/linter-rules/use_null_aware_elements)
 

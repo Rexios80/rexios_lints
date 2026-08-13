@@ -7,6 +7,8 @@ linter:
     - avoid_types_on_closure_parameters
     - conditional_uri_does_not_exist
     - document_ignores
+    - empty_container_bodies
+    - initialize_in_field_declaration
     - leading_newlines_in_multiline_strings
     - omit_local_variable_types
     - omit_obvious_property_types
@@ -19,8 +21,12 @@ linter:
     - unawaited_futures
     - unnecessary_async
     - unnecessary_breaks
+    - unnecessary_const_in_enum_constructor
     - unnecessary_ignore
     - unnecessary_lambdas
     - unnecessary_parenthesis
+    - unnecessary_primary_constructor_body
+    - unnecessary_type_name_in_constructor
+    - use_declaring_parameters
     - use_null_aware_elements
     - use_truncating_division

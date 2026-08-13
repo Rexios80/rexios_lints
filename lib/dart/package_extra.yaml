@@ -2,4 +2,4 @@ include: package:rexios_lints/dart/package.yaml
 
 plugins:
   rexios_lints:
-    version: ^18.1.0
+    version: ^19.0.0

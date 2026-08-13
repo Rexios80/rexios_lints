@@ -1,3 +1,14 @@
+## 19.0.0
+
+- Requires Dart `3.13.0`
+- Adds the following lints to `core`:
+  - `empty_container_bodies`
+  - `initialize_in_field_declaration`
+  - `unnecessary_const_in_enum_constructor`
+  - `unnecessary_primary_constructor_body`
+  - `unnecessary_type_name_in_constructor`
+  - `use_declaring_parameters`
+
 ## 18.2.0
 
 - Restructure the package so custom rules can be used in other analyzer plugins
