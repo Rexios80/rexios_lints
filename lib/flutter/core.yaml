@@ -4,12 +4,15 @@ linter:
   rules:
     - always_declare_return_types
     - always_use_package_imports
+    - async_return_with_no_await
     - avoid_types_on_closure_parameters
     - conditional_uri_does_not_exist
     - document_ignores
     - empty_container_bodies
     - initialize_in_field_declaration
     - leading_newlines_in_multiline_strings
+    - migrate_design_widgets
+    - no_raw_types
     - omit_local_variable_types
     - omit_obvious_property_types
     - prefer_const_constructors
@@ -19,6 +22,8 @@ linter:
     - prefer_final_locals
     - prefer_int_literals
     - prefer_single_quotes
+    - simple_directive_paths
+    - simplify_variable_pattern
     - switch_on_type
     - unawaited_futures
     - unnecessary_async
@@ -34,3 +39,4 @@ linter:
     - use_decorated_box
     - use_null_aware_elements
     - use_truncating_division
+    - var_with_no_type_annotation

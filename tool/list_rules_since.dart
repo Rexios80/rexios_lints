@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 /// List all rules since this version (inclusive)
-final since = Version.parse('3.3.0');
+final since = Version.parse('3.13.0');
 const url =
     'https://raw.githubusercontent.com/dart-lang/site-www/main/src/data/linter_rules.json';
 

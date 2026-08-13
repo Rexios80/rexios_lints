@@ -2,12 +2,19 @@
 
 - Requires Dart `3.13.0`
 - Adds the following lints to `core`:
+  - `async_return_with_no_await`
   - `empty_container_bodies`
   - `initialize_in_field_declaration`
+  - `no_raw_types`
+  - `simple_directive_paths`
+  - `simplify_variable_pattern`
   - `unnecessary_const_in_enum_constructor`
   - `unnecessary_primary_constructor_body`
   - `unnecessary_type_name_in_constructor`
   - `use_declaring_parameters`
+  - `var_with_no_type_annotation`
+- Adds the following lints to `flutter/core`:
+  - `migrate_design_widgets`
 
 ## 18.2.0
 

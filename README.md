@@ -70,6 +70,11 @@ plugins:
 - Readability
 - Relative imports make it hard to see where a file is coming from
 
+[async_return_with_no_await](https://dart.dev/tools/linter-rules/async_return_with_no_await)
+
+- Safety
+- Returning a `Future` from an `async` function without `await` skips the function's error handling
+
 [avoid_types_on_closure_parameters](https://dart.dev/tools/linter-rules/avoid_types_on_closure_parameters)
 
 - Brevity
@@ -105,6 +110,11 @@ plugins:
 - Readability
 - Not all languages ignore a leading newline in multiline strings. Dart does, and it's more readable. No more remembering if Dart supports it or not.
 
+[no_raw_types](https://dart.dev/tools/linter-rules/no_raw_types)
+
+- Safety
+- Raw generic types don't infer type arguments. They use the type parameter bound, which is usually `dynamic`
+
 [omit_local_variable_types](https://dart.dev/tools/linter-rules/omit_local_variable_types)
 
 - Brevity
@@ -134,6 +144,16 @@ plugins:
 
 - Consistency
 - Enforces consistency with the rest of the Dart ecosystem
+
+[simple_directive_paths](https://dart.dev/tools/linter-rules/simple_directive_paths)
+
+- Readability
+- Redundant `./` and `../` segments make import, export, and part paths harder to follow
+
+[simplify_variable_pattern](https://dart.dev/tools/linter-rules/simplify_variable_pattern)
+
+- Brevity
+- `String(:var length)` is more concise than `String(length: var length)`
 
 [switch_on_type](https://dart.dev/tools/linter-rules/switch_on_type)
 
@@ -201,6 +221,11 @@ plugins:
 - Brevity
 - `a ~/ b` is more concise than `(a / b).toInt()`
 
+[var_with_no_type_annotation](https://dart.dev/tools/linter-rules/var_with_no_type_annotation)
+
+- Safety
+- `var` on parameters is reserved for declaring parameters. Use an explicit type or omit `var`.
+
 ### dart/core
 
 [prefer_const_constructors_in_immutables](https://dart.dev/tools/linter-rules/prefer_const_constructors_in_immutables)
@@ -209,6 +234,11 @@ plugins:
 - Const constructors improve performance
 
 ### flutter/core
+
+[migrate_design_widgets](https://dart.dev/tools/linter-rules/migrate_design_widgets)
+
+- Technical debt
+- `package:flutter/material.dart` and `package:flutter/cupertino.dart` are deprecated. Use `material_ui` and `cupertino_ui` instead.
 
 [prefer_const_constructors](https://dart.dev/tools/linter-rules/prefer_const_constructors)
 

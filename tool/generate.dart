@@ -5,18 +5,22 @@ import 'package:path/path.dart' as path;
 final core = [
   'always_declare_return_types',
   'always_use_package_imports',
+  'async_return_with_no_await',
   'avoid_types_on_closure_parameters',
   'conditional_uri_does_not_exist',
   'document_ignores',
   'empty_container_bodies',
   'initialize_in_field_declaration',
   'leading_newlines_in_multiline_strings',
+  'no_raw_types',
   'omit_local_variable_types',
   'omit_obvious_property_types',
   'prefer_final_in_for_each',
   'prefer_final_locals',
   'prefer_int_literals',
   'prefer_single_quotes',
+  'simple_directive_paths',
+  'simplify_variable_pattern',
   'switch_on_type',
   'unawaited_futures',
   'unnecessary_async',
@@ -30,6 +34,7 @@ final core = [
   'use_declaring_parameters',
   'use_null_aware_elements',
   'use_truncating_division',
+  'var_with_no_type_annotation',
 ]..sort();
 
 final dart = [...core, 'prefer_const_constructors_in_immutables']..sort();
@@ -39,6 +44,7 @@ final flutter = [
   'prefer_const_constructors',
   'prefer_const_declarations',
   'prefer_const_literals_to_create_immutables',
+  'migrate_design_widgets',
   'use_colored_box',
   'use_decorated_box',
 ]..sort();
