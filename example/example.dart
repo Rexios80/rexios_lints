@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+
 import 'package:clock/clock.dart';
 import 'package:flutter/widgets.dart';
 
@@ -21,13 +22,13 @@ void unawaitedFutures() async {
 class UseSuperParametersBase {
   final int param;
 
-  const UseSuperParametersBase(this.param);
+  const new(this.param);
 }
 
 @immutable
 class UseSuperParameters extends UseSuperParametersBase {
   // ignore: use_super_parameters
-  const UseSuperParameters(int param) : super(param);
+  const new(int param) : super(param);
 }
 
 void preferFinal() {
@@ -75,28 +76,28 @@ void doNotUseRawPaths() {
 class PreferImmutableClasses {
   final int value;
 
-  PreferImmutableClasses(this.value);
+  new(this.value);
 }
 
 @immutable
 class ImmutableSupertype {
-  const ImmutableSupertype();
+  const new();
 }
 
 class ImmutableSubclass extends ImmutableSupertype {
   final String asdf;
 
-  const ImmutableSubclass(this.asdf);
+  const new(this.asdf);
 }
 
 class MutableSupertype {
   int value;
 
-  MutableSupertype(this.value);
+  new(this.value);
 }
 
 class MutableSubclass extends MutableSupertype {
-  MutableSubclass(super.value);
+  new(super.value);
 }
 
 void inlineContextLookups(BuildContext context) {
