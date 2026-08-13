@@ -43,7 +43,7 @@ class Rule {
   final Set<String> sets;
   final Version sinceDartSdk;
 
-  const Rule({
+  const new({
     required this.name,
     required this.description,
     required this.state,
@@ -51,7 +51,7 @@ class Rule {
     required this.sinceDartSdk,
   });
 
-  factory Rule.fromJson(Map<String, dynamic> json) {
+  factory fromJson(Map<String, dynamic> json) {
     String padZeros(String version) {
       final parts = version.split('-');
       final numbers = parts[0].split('.');

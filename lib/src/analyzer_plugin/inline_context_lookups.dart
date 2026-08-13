@@ -21,8 +21,7 @@ class InlineContextLookups extends AnalysisRule {
   );
 
   /// Constructor
-  InlineContextLookups()
-    : super(name: code.lowerCaseName, description: code.problemMessage);
+  new() : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;
@@ -42,7 +41,7 @@ class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  const _Visitor(this.rule, this.context);
+  const new(this.rule, this.context);
 
   @override
   void visitMethodInvocation(MethodInvocation node) {

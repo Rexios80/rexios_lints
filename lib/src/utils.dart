@@ -21,7 +21,7 @@ class TypeNamed implements Type {
   final String name;
 
   /// Constructor
-  const TypeNamed(this.name);
+  const new(this.name);
 
   @override
   String toString() => name;

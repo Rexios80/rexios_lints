@@ -28,8 +28,7 @@ class DoubleLeadingZero extends AnalysisRule {
   );
 
   /// Constructor
-  DoubleLeadingZero()
-    : super(name: code.lowerCaseName, description: code.problemMessage);
+  new() : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;
@@ -49,7 +48,7 @@ class _Visitor extends SimpleAstVisitor<void> {
   final AnalysisRule rule;
   final RuleContext context;
 
-  const _Visitor(this.rule, this.context);
+  const new(this.rule, this.context);
 
   @override
   void visitDoubleLiteral(DoubleLiteral node) {
@@ -67,7 +66,7 @@ class AddLeadingZero extends ResolvedCorrectionProducer {
   );
 
   /// Constructor
-  AddLeadingZero({required super.context});
+  new({required super.context});
 
   @override
   CorrectionApplicability get applicability =>

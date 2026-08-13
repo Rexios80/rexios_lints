@@ -7,10 +7,9 @@ import 'package:meta/meta.dart';
 /// A function that can be executed to create a [CorrectionProducer].
 ///
 /// Copied from [analysis_server_plugin] since it is not exported.
-typedef ProducerGenerator =
-    CorrectionProducer<ParsedUnitResult> Function({
-      required CorrectionProducerContext context,
-    });
+typedef ProducerGenerator = CorrectionProducer<ParsedUnitResult> Function({
+  required CorrectionProducerContext context,
+});
 
 /// Wrapper for a lint rule and its fixes
 @immutable
@@ -22,7 +21,7 @@ class RexiosLint {
   final List<ProducerGenerator> fixes;
 
   /// Constructor
-  const RexiosLint({required this.rule, this.fixes = const []});
+  const new({required this.rule, this.fixes = const []});
 
   /// Register the lint rule and its fixes with the analyzer
   void register(PluginRegistry registry) {
