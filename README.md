@@ -95,6 +95,11 @@ plugins:
 - Brevity
 - Empty class-like declarations can use `;` instead of `{}`
 
+[future_sync_value](https://dart.dev/tools/linter-rules/future_sync_value)
+
+- Performance
+- `Future.value` checks whether its argument is a `Future`. That check is wasted when the value is already known to be synchronous
+
 [initialize_in_field_declaration](https://dart.dev/tools/linter-rules/initialize_in_field_declaration)
 
 - Readability

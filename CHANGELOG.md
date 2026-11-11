@@ -1,3 +1,9 @@
+## 20.0.0
+
+- Requires Dart `3.14.0`
+- Adds the following lints to `core`:
+  - `future_sync_value`
+
 ## 19.0.0
 
 - Requires Dart `3.13.0`

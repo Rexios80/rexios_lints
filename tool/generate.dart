@@ -10,6 +10,7 @@ final core = [
   'conditional_uri_does_not_exist',
   'document_ignores',
   'empty_container_bodies',
+  'future_sync_value',
   'initialize_in_field_declaration',
   'leading_newlines_in_multiline_strings',
   'omit_local_variable_types',
